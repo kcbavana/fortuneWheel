@@ -17,7 +17,7 @@ public class JavaFXTemplate extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		primaryStage.setTitle("Fortune Wheel");
+		primaryStage.setTitle("Fortune Wheel Server");
 		Parent root = FXMLLoader.load(getClass().getResource("/FXML/Myfxml.fxml"));
 		Scene scene = new Scene(root, 500,500);
 		scene.getStylesheets().add("/styles/style1.css");

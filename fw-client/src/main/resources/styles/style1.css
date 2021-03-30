@@ -1,0 +1,19 @@
+#bPane {
+	-fx-background-color: #b1dae7;
+}
+
+#centerBox {
+	-fx-alignment: center;
+}
+
+#title {
+	-fx-font: 70px Tahoma;
+}
+
+#subTitle {
+	-fx-font: 35px Tahoma;
+}
+
+#bottomBox {
+	-fx-alignment: center;
+}

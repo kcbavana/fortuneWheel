@@ -1,10 +1,13 @@
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class JavaFXClient extends Application {
 
@@ -18,11 +21,20 @@ public class JavaFXClient extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("Fortune Wheel Client");
-		Parent root = FXMLLoader.load(getClass().getResource("/FXML/Myfxml.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/FXML/ClientIntro.fxml"));
 		Scene scene = new Scene(root, 500,500);
-		scene.getStylesheets().add("/styles/style1.css");
+		scene.getStylesheets().add("/styles/ClientIntro.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		// Ensure proper shutdown
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 	}
 
 }

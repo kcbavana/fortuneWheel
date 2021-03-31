@@ -27,6 +27,7 @@ public class JavaFXServer extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
+		// Ensure proper shutdown
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {

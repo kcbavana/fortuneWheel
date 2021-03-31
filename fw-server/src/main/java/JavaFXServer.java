@@ -1,12 +1,15 @@
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
-public class JavaFXTemplate extends Application {
+public class JavaFXServer extends Application {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -18,11 +21,19 @@ public class JavaFXTemplate extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("Fortune Wheel Server");
-		Parent root = FXMLLoader.load(getClass().getResource("/FXML/Myfxml.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/FXML/ServerIntro.fxml"));
 		Scene scene = new Scene(root, 500,500);
-		scene.getStylesheets().add("/styles/style1.css");
+		scene.getStylesheets().add("/styles/ServerIntro.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 	}
 
 }

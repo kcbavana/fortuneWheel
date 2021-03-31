@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 <?import java.lang.*?>
 
-<BorderPane fx:controller="serverIntro" xmlns:fx="http://javafx.com/fxml" id = "bPane">
+<BorderPane fx:controller="ServerIntro" xmlns:fx="http://javafx.com/fxml" id = "bPane">
 
 	<center>
 		<VBox fx:id="centerBox" spacing = "30">
@@ -19,7 +19,7 @@
 	</center>
 	<bottom>
 		<HBox fx:id="bottomBox" spacing = "50">
-			<Button fx:id="connectButton" text = "Connect"/>
+			<Button fx:id="connectButton" text = "Connect" onAction = "#connectMethod"/>
 			<Button fx:id="exitButton" text="exit"/>
 		</HBox>	
 	</bottom>

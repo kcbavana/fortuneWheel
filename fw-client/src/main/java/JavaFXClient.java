@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class JavaFXTemplate extends Application {
+public class JavaFXClient extends Application {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

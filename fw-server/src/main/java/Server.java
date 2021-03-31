@@ -13,19 +13,19 @@ public class Server{
 
 	int count = 1;	
 	ArrayList<ClientThread> clients = new ArrayList<ClientThread>();
-	TheServer server;
+	ServerThread server;
 	private Consumer<Serializable> callback;
 	
 	
 	Server(Consumer<Serializable> call){
 	
 		callback = call;
-		server = new TheServer();
+		server = new ServerThread();
 		server.start();
 	}
 	
 	// Server Thread inner class
-	public class TheServer extends Thread{
+	public class ServerThread extends Thread{
 		
 		public void run() {
 		

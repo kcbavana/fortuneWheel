@@ -1,12 +1,13 @@
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -14,7 +15,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class serverIntro implements Initializable {
+public class ServerIntro implements Initializable {
+	
+	public Server server;
 	
 	@FXML
 	private BorderPane bPane;
@@ -44,5 +47,23 @@ public class serverIntro implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
         
+	}
+	
+	/*
+	 * TODO: Constructor. Passes Stage and SceneMap to ServerIntro class
+	 */
+	
+	
+	/*
+	 * Connect Button initializes a Server object listening on the 
+	 * specified port
+	 */
+	public void connectMethod(ActionEvent e) throws IOException {
+		server = new Server(data -> {
+			Platform.runLater(() -> {
+				System.out.println(data.toString());
+			});
+		});
+		
 	}
 }

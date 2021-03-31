@@ -14,8 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.control.ListView;
 
-public class ServerIntro implements Initializable {
+public class ServerScene implements Initializable {
 	
 	public static Server server;
 	
@@ -23,26 +24,8 @@ public class ServerIntro implements Initializable {
 	private BorderPane bPane;
 	
 	@FXML
-	private VBox centerBox;
-	
-	@FXML
-	private Text title;
-	
-	@FXML
-	private Text subTitle;
-	
-	@FXML
-	private TextField portField;
-	
-	@FXML 
-	private HBox bottomBox;
-	
-	@FXML
-	private Button connectButton;
-	
-	@FXML
-	private Button exitButton;
-	
+	private ListView<String> serverLogs;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -50,21 +33,7 @@ public class ServerIntro implements Initializable {
 	}
 	
 	/*
-	 * TODO: Constructor. Passes Stage and SceneMap to ServerIntro class
+	 * TODO: Constructor. Passes Stage and SceneMap to this class
 	 */
 	
-	
-	/*
-	 * Connect Button initializes a Server object listening on the 
-	 * specified port
-	 */
-	public void connectMethod(ActionEvent e) throws IOException {
-		server = new Server(data -> {
-			Platform.runLater(() -> {
-				System.out.println(data.toString());
-			});
-		});
-		// 
-		
-	}
 }

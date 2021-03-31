@@ -4,13 +4,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
+import java.util.HashMap;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class JavaFXServer extends Application {
 
+	public static HashMap<String,Scene> sceneMap;
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);

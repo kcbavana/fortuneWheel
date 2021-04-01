@@ -54,13 +54,6 @@ public class ClientIntro implements Initializable {
 	}
 	
 	/*
-	 * Constructor, passes SceneMap to this class
-	 */
-	public ClientIntro(HashMap<String,Scene> sceneMap) {
-		scenes = sceneMap;
-	}
-	
-	/*
 	 * Connect to server 
 	 */
 	public void connectMethod(ActionEvent e) throws IOException {
@@ -69,17 +62,35 @@ public class ClientIntro implements Initializable {
 				System.out.println(data.toString());
 			});
 		});
-		client.start();*/
+		client.start();
 		
 		//Change Scene
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
-		Parent root = FXMLLoader.load(getClass().getResource("/FXML/CategoryScene.fxml"));/* Exception */
+		Parent root = FXMLLoader.load(getClass().getResource("/FXML/CategoryScene.fxml"));
 		Scene scene = new Scene(root);
 		//scene.getStylesheets().add("/styles/CategoryScene.css");
 		stage.setScene(scene);
-		stage.show();
+		stage.show();*/
+		changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
 		
+	}
+	
+	/*
+	 * Given ActionEvent and Strings to .fxml and .css files, change the current Scene
+	 */
+	public void changeScene(ActionEvent e, String fxml, String css) throws IOException{
+		// Retrieve Stage from ActionEvent
+		Node node=(Node) e.getSource();
+		Stage stage=(Stage) node.getScene().getWindow();
+		// Populate root of Scene Graph from .xml and init Scene
+		Parent root = FXMLLoader.load(getClass().getResource(fxml));
+		Scene scene = new Scene(root);
+		// Apply CSS styling
+		scene.getStylesheets().add(css);
+		// Change current Scene on the Stage
+		stage.setScene(scene);
+		stage.show();
 	}
 
 }

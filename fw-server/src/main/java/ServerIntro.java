@@ -76,12 +76,23 @@ public class ServerIntro implements Initializable {
 			});
 		});
 		*/
+		
+		changeScene(e, "/FXML/ServerScene.fxml","/styles/ServerScene.css");
+	}
+	
+	/*
+	 * Given ActionEvent and Strings to .fxml and .css files, change the current Scene
+	 */
+	public void changeScene(ActionEvent e, String fxml, String css) throws IOException{
+		// Retrieve Stage from ActionEvent
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
-		//stage.setScene(scenes.get("serverScene"));
-		Parent root = FXMLLoader.load(getClass().getResource("/FXML/ServerScene.fxml"));
+		// Populate root of Scene Graph from .xml and init Scene
+		Parent root = FXMLLoader.load(getClass().getResource(fxml));
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add("/styles/ServerScene.css");
+		// Apply CSS styling
+		scene.getStylesheets().add(css);
+		// Change current Scene on the Stage
 		stage.setScene(scene);
 		stage.show();
 	}

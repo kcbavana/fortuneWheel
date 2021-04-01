@@ -41,7 +41,7 @@
 		<HBox fx:id="menuBox" spacing="70">
 			<Button fx:id="backButton" text="Back"/>
 			<Button fx:id="exitButton" text="Exit"/>
-		</Hbox>
+		</HBox>
 	
 	</bottom>
 </BorderPane>

@@ -1,3 +1,5 @@
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ClientRules implements Initializable {
 	
@@ -21,4 +23,10 @@ public class ClientRules implements Initializable {
 	
 	@FXML
 	private Button exitButton;
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+        
+	}
 }

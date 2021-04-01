@@ -8,8 +8,7 @@
 <?import javafx.scene.text.Text?>
 <?import java.lang.*?>
 
-<BorderPane fx:controller="ServerIntro" xmlns:fx="http://javafx.com/fxml" id = "bPane">
-
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id = "bPane" styleClass="border" fx:controller = "ServerIntro">
 	<center>
 		<VBox fx:id="centerBox" spacing = "30">
 			<Text fx:id="title" text = "Fortune Wheel!"/>
@@ -23,6 +22,4 @@
 			<Button fx:id="exitButton" text="exit"/>
 		</HBox>	
 	</bottom>
-	
-
 </BorderPane>

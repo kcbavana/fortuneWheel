@@ -21,7 +21,10 @@ public class ServerScene implements Initializable {
 	public static Server server;
 	
 	@FXML
-	private BorderPane bPane;
+	private VBox vbox;
+	
+	@FXML
+	private Text h1;
 	
 	@FXML
 	private ListView<String> serverLogs;
@@ -32,8 +35,5 @@ public class ServerScene implements Initializable {
         
 	}
 	
-	/*
-	 * TODO: Constructor. Passes Stage and SceneMap to this class
-	 */
 	
 }

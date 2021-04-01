@@ -1,7 +1,7 @@
-#bPane {
-	-fx-background-color: #b1dae7;
+#h1 {
+	-fx-font: 24px Tahoma;
 }
 
 #serverLogs {
-		-fx-font: 35px Tahoma;
+		-fx-font: 12px Tahoma;
 }

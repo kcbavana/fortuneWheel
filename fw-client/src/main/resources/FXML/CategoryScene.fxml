@@ -13,27 +13,24 @@
 		<Text fx:id="title" text = "Chose a category"/>
 	</top>
 	<center>
-		<HBox fx:id="categoryBox" spacing="10">
-			<VBox fx:id="animalBox" spacing="20">
-				<Button fx:id="animalsButton"/>
-				<Text fx:id="animalsText" text = "
-					Animals
-					Wins: X
-					Losses: X" />
+		<HBox fx:id="categoryBox" spacing="50">
+			<VBox fx:id="animalBox" spacing="20" >
+				<Button fx:id="animalsButton" text = "animals"/>
+				<Text fx:id="moviesText" text = "Animals" />
+				<Text fx:id="moviesText" text = "Wins: " />
+				<Text fx:id="moviesText" text = "Losses: " />
 			</VBox>
-			<VBox fx:id="placesBox" spacing="20">
-				<Button fx:id="placesButton"/>
-				<Text fx:id="placesText" text = "
-					Places
-					Wins: X
-					Losses: X" />
+			<VBox fx:id="placesBox" spacing="20" >
+				<Button fx:id="placesButton" text = "places"/>
+				<Text fx:id="moviesText" text = "Places" />
+				<Text fx:id="moviesText" text = "Wins: " />
+				<Text fx:id="moviesText" text = "Losses: " />
 			</VBox>
 			<VBox fx:id="moviesBox" spacing="20">
-				<Button fx:id="moviesButton"/>
-				<Text fx:id="moviesText" text = "
-					Movies
-					Wins:
-					Losses: " />
+				<Button fx:id="moviesButton" text = "movies"/>
+				<Text fx:id="moviesText" text = "Movies" />
+				<Text fx:id="moviesText" text = "Wins: " />
+				<Text fx:id="moviesText" text = "Losses: "/>
 			</VBox>
 		</HBox>
 	</center>

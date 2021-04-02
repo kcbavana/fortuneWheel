@@ -1,0 +1,26 @@
+#bPane {
+	-fx-background-color: #b1dae7;
+}
+
+#categoryBox {
+	-fx-alignment: center;
+}
+
+#title {
+	-fx-font: 60px Tahoma;
+}
+
+#menuBox {
+	-fx-alignment: center;
+}
+
+
+#categoryBox {
+	-fx-alignment: center;
+}
+
+#moviesButton {
+	-fx-background-image: url('animals.jpg');
+	-fx-width: 500px;
+	-fx-height: 500px;
+}

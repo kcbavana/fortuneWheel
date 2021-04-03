@@ -33,6 +33,15 @@ public class ClientIntro implements Initializable {
 	private Text title;
 	
 	@FXML
+	private VBox portField;
+	
+	@FXML
+	private TextField portNumber;
+	
+	@FXML
+	private TextField ipPort;
+	
+	@FXML
 	private Text subTitle;
 	
 	@FXML 

@@ -15,8 +15,8 @@
 	</center>
 	<bottom>
 		<HBox fx:id="menuBox" spacing = "70">
-			<Button fx:id="newGameButton" text="New Game"/>
-			<Button fx:id="exitButton" text="Exit"/>
+			<Button fx:id="newGameButton" text="New Game" onAction = "#mainMenuMethod" />
+			<Button fx:id="exitButton" text="Exit" onAction = "#exitMethod"/>
 		</HBox>
 	</bottom>
 

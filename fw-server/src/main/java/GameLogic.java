@@ -1,10 +1,11 @@
 import java.util.regex.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameLogic {
 	// current game state
-	String currentWord;
-	String currentCategory;
+	private String currentWord;
+	private String currentCategory;
 	Integer guesses;
 	// Win count
 	Boolean winAnimal;
@@ -15,16 +16,18 @@ public class GameLogic {
 	Integer lossMovie;
 	Integer lossPlace;
 	// Name of each category
-	String Animals;
-	String Movies;
-	String Places;
+	//String Animals;
+	//String Movies;
+	//String Places;
 	// ArrayLists of words to guess
-	ArrayList<String> wordsAnimal;
-	ArrayList<String> wordsMovie;
-	ArrayList<String> wordsPlace;
-	ArrayList<String> wordsUsed;
+	private ArrayList<String> wordsAnimal;
+	private ArrayList<String> wordsMovie;
+	private ArrayList<String> wordsPlace;
+	private ArrayList<String> wordsUsed;
 	// Array for tracking guessed letters
 	String guessArray;
+	// Generate random numbers
+	Random random;
 	
 	// Constructor, init starting game values
 	public GameLogic() 
@@ -82,6 +85,8 @@ public class GameLogic {
 		wordsUsed = new ArrayList<String>();
 		// null guessArray
 		guessArray = null;
+		// init random
+		random = new Random();
 	}
 	
 	/*
@@ -89,16 +94,17 @@ public class GameLogic {
 	 * 
 	 * Note to self: write unit tests for behavior of classes, not functions
 	 */
+	
 	// get/set currentWord
 	public String getCurrentWord() 
 	{
 		return currentWord;
 	}
 	
-	private void setCurrentWord(String word)
+	/*private void setCurrentWord(String word)
 	{
 		currentWord = word;
-	}
+	}*/
 	
 	// get/set currentCategory
 	public String getCategory()
@@ -190,6 +196,69 @@ public class GameLogic {
 							break;			
 		}
 	}
+	
+	/*
+	 * Select unused word to be guessed, and add it to usedWords
+	 */
+	
+	// get word from input category. No setter for the Category ArrayLists
+	private String getWordFromCategory(String category)
+	{
+		switch(category)
+		{
+			case "Animals":	return wordsAnimal.get(random.nextInt(10));
+			case "Movies":	return wordsMovie.get(random.nextInt(10));
+			case "Places":	return wordsPlace.get(random.nextInt(10));
+			default:		System.out.println("Invalid Category");
+							break;			
+		}
+		return null;
+	}
+	
+	// add/clear words to usedWords
+	/*
+	private void addToUsedWords(String word)
+	{
+		wordsUsed.add("word");
+	}
+	
+	private void clearUsedWords()
+	{
+		wordsUsed.clear();
+	}*/
+	
+	// Check usedWords for input word
+	private Boolean checkUsedWords(String word)
+	{
+		for(String s:wordsUsed)
+		{
+			if(s == word)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	// Use private functions to set next Word
+	public void playNextWord()
+	{
+		// get random word
+		String temp = getWordFromCategory(currentCategory);
+		// pick another word if it has been played already
+		while(checkUsedWords(temp))
+		{
+			temp = getWordFromCategory(currentCategory);
+		}
+		wordsUsed.add(temp);
+		currentWord = temp;
+	}
+	
+	// 
+	
+	
+	
+
 	
 	
 }

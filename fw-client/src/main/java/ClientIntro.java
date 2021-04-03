@@ -85,7 +85,7 @@ public class ClientIntro implements Initializable {
 		Stage stage=(Stage) node.getScene().getWindow();
 		// Populate root of Scene Graph from .xml and init Scene
 		Parent root = FXMLLoader.load(getClass().getResource(fxml));
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(root, 500, 500);
 		// Apply CSS styling
 		scene.getStylesheets().add(css);
 		// Change current Scene on the Stage

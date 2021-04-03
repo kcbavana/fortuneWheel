@@ -7,6 +7,7 @@
 }
 
 #title {
+	-fx-text-alignment: center;
 	-fx-font: 60px Tahoma;
 }
 
@@ -16,11 +17,32 @@
 
 
 #categoryBox {
+	-fx-padding: 100 ;
 	-fx-alignment: center;
 }
 
+
 #moviesButton {
-	-fx-background-image: url('animals.jpg');
-	-fx-width: 500px;
-	-fx-height: 500px;
+	-fx-background-image: url('movies.jpg');
+	-fx-text-fill: yellow;
+	-fx-font: 15px Tahoma;
+    -fx-pref-width: 100px;
+	-fx-pref-height: 100px;
+	
+}
+
+#placesButton {
+	-fx-background-image: url('places.jpg');
+	-fx-text-fill: red;
+	-fx-font: 15px Tahoma;
+    -fx-pref-width: 100px;
+	-fx-pref-height: 100px;
+}
+
+#animalsButton {
+	-fx-background-image: url('animals.png');
+	-fx-text-fill: yellow;
+	-fx-font: 12px Tahoma;
+    -fx-pref-width: 100px;
+	-fx-pref-height: 100px;
 }

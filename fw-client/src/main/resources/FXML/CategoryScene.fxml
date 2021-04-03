@@ -15,7 +15,7 @@
 	<center>
 		<HBox fx:id="categoryBox" spacing="50">
 			<VBox fx:id="animalBox" spacing="20" >
-				<Button fx:id="animalsButton" text = "animals"/>
+				<Button fx:id="animalsButton" text = "animals" onAction = "#connectMethod"/>
 				<Text fx:id="moviesText" text = "Animals" />
 				<Text fx:id="moviesText" text = "Wins: " />
 				<Text fx:id="moviesText" text = "Losses: " />

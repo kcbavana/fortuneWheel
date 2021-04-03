@@ -1,0 +1,37 @@
+#bPane {
+	-fx-background-color: #b1dae7;
+}
+
+#title {
+	-fx-font: 50px Tahoma;
+}
+
+#titleBox {
+	-fx-alignment: center;
+}
+
+#gameBox {
+	-fx-alignment: center;
+}
+
+#sendCharBox {
+	-fx-alignment: center;
+	-fx-padding: 10;
+}
+
+#menuBox {
+	-fx-alignment: center;
+}
+
+#gameText {
+	-fx-padding: 10;
+    -fx-border-style: solid inside;
+    -fx-border-width: 5;
+    -fx-border-radius: 2;
+    -fx-border-color: green;
+	-fx-font: 50px Tahoma;
+}
+
+#titleVBox {
+	-fx-alignment: center;
+}

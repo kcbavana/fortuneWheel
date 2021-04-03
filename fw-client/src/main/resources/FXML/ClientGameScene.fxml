@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+<?import java.lang.*?>
+
+<BorderPane fx:controller="ClientGameScene" xmlns:fx="http://javafx.com/fxml" id = "bPane">
+	<top>
+		
+		<VBox fx:id="titleVBox" spacing = "40">
+			<Text fx:id="title" text = "Fortune Wheel"/>
+			<HBox fx:id="titleBox" spacing = "30">
+				<Text fx:id="winsText" text = "Wins: "/>
+				<Text fx:id="currentCategory" text = "Current Category: "/>
+				<Text fx:id="losesText" text = "Looses: "/>
+			</HBox>
+		</VBox>
+	</top>
+	<center>
+		<VBox fx:id="gameBox" spacing = "50">
+			<Text fx:id="gameText" text = "_ _ _ _ _ _ _ _ "/>
+			<TextField fx:id="sendCharBox" text = "Type a char and hit enter: "/>
+		</VBox>
+		
+	</center>
+	<bottom>
+		<HBox fx:id="menuBox" spacing="70">
+			<Button fx:id="newGameButton" text="New Game"/>
+			<Text fx:id="guessesText" text = "Guesses Left: "/>
+			<Button fx:id="exitButton" text="Exit"/>
+		</HBox>
+	</bottom>
+</BorderPane>

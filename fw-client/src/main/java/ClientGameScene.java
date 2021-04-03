@@ -28,7 +28,13 @@ public class ClientGameScene implements Initializable {
 	private BorderPane bPane;
 	
 	@FXML
+	private VBox titleVBox;
+	
+	@FXML
 	private HBox titleBox;
+	
+	@FXML
+	private Text title;
 	
 	@FXML
 	private Text winsText;
@@ -38,6 +44,33 @@ public class ClientGameScene implements Initializable {
 	
 	@FXML
 	private Text losesText;
+	
+	@FXML
+	private VBox gameBox;
+	
+	@FXML
+	private Text gameText;
+	
+	@FXML
+	private TextField sendCharBox;
+	
+	@FXML
+	private HBox menuBox;
+	
+	@FXML
+	private Button newGameButton;
+	
+	@FXML
+	private Button exitButton;
+	
+	@FXML
+	private Text guessesText;
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+        
+	}
 	
 	
 }

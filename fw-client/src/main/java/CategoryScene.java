@@ -80,14 +80,17 @@ public class CategoryScene implements Initializable {
 	}
 	
 	public void animalsMethod(ActionEvent e) throws IOException {
+		Client.curCategory = "Animals";
 		changeScene(e,"/FXML/ClientGameScene.fxml","/styles/ClientGameScene.css");
 	}
 	
 	public void moviesMethod(ActionEvent e) throws IOException {
+		Client.curCategory = "Movies";
 		changeScene(e,"/FXML/ClientGameScene.fxml","/styles/ClientGameScene.css");
 	}
 	
 	public void placesMethod(ActionEvent e) throws IOException {
+		Client.curCategory = "Places";
 		changeScene(e,"/FXML/ClientGameScene.fxml","/styles/ClientGameScene.css");
 	}
 	

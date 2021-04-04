@@ -79,7 +79,7 @@ public class ClientGameScene implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		currentCategory.setText("Current Category: " + Client.curCategory);
         
 	}
 	

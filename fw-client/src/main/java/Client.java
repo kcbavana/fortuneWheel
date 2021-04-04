@@ -15,6 +15,9 @@ public class Client extends Thread{
 	ObjectOutputStream out;
 	ObjectInputStream in;
 	
+	GameLogic logic = new GameLogic();
+	public static String curCategory;
+	
 	private Consumer<Serializable> callback;
 	
 	Client(Consumer<Serializable> call){

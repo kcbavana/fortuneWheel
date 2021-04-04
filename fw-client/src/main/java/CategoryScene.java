@@ -59,10 +59,28 @@ public class CategoryScene implements Initializable {
 	private Text animalsText;
 	
 	@FXML
+	private Text animalsWin;
+	
+	@FXML
+	private Text animalsLoses;
+	
+	@FXML
 	private Text moviesText;
 	
 	@FXML
+	private Text moviesWin;
+	
+	@FXML
+	private Text moviesLoses;
+	
+	@FXML
 	private Text placesText;
+	
+	@FXML
+	private Text placesWin;
+	
+	@FXML
+	private Text placesLoses;
 	
 	@FXML
 	private HBox menuBox;
@@ -75,7 +93,12 @@ public class CategoryScene implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		animalsWin.setText("Wins: " + Client.animalWins);
+		animalsLoses.setText("Looses: " + Client.animalLoses);
+		moviesWin.setText("Wins: " + Client.moviesWins);
+		moviesLoses.setText("Looses: " + Client.moviesLoses);
+		placesWin.setText("Wins: " + Client.placesWins);
+		placesLoses.setText("Looses: " + Client.placesLoses);
         
 	}
 	

@@ -15,6 +15,7 @@ public class Server{
 	ArrayList<ClientThread> clients = new ArrayList<ClientThread>();
 	ServerThread server;
 	private Consumer<Serializable> callback;
+	GameLogic logic = new GameLogic();
 	
 	
 	Server(Consumer<Serializable> call){

@@ -16,21 +16,21 @@
 		<HBox fx:id="categoryBox" spacing="50">
 			<VBox fx:id="animalBox" spacing="20" >
 				<Button fx:id="animalsButton" text = "animals" onAction = "#animalsMethod"/>
-				<Text fx:id="moviesText" text = "Animals" />
-				<Text fx:id="moviesText" text = "Wins: " />
-				<Text fx:id="moviesText" text = "Losses: " />
+				<Text fx:id="animalsText" text = "Animals" />
+				<Text fx:id="animalsWin" text = "Wins: " />
+				<Text fx:id="animalsLoses" text = "Losses: " />
 			</VBox>
 			<VBox fx:id="placesBox" spacing="20" >
 				<Button fx:id="placesButton" text = "places" onAction = "#placesMethod"/>
 				<Text fx:id="moviesText" text = "Places" />
-				<Text fx:id="moviesText" text = "Wins: " />
-				<Text fx:id="moviesText" text = "Losses: " />
+				<Text fx:id="moviesWin" text = "Wins: " />
+				<Text fx:id="moviesLoses" text = "Losses: " />
 			</VBox>
 			<VBox fx:id="moviesBox" spacing="20">
 				<Button fx:id="moviesButton" text = "movies" onAction = "#moviesMethod"/>
-				<Text fx:id="moviesText" text = "Movies" />
-				<Text fx:id="moviesText" text = "Wins: " />
-				<Text fx:id="moviesText" text = "Losses: "/>
+				<Text fx:id="placesText" text = "Movies" />
+				<Text fx:id="placesWin" text = "Wins: " />
+				<Text fx:id="placesLoses" text = "Losses: "/>
 			</VBox>
 		</HBox>
 	</center>

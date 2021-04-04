@@ -66,7 +66,7 @@ public class ClientIntro implements Initializable {
 	 * Connect to server 
 	 */
 	public void connectMethod(ActionEvent e) throws IOException {
-		/*client = new Client(data -> {
+		client = new Client(data -> {
 			Platform.runLater(() -> {
 				System.out.println(data.toString());
 			});
@@ -80,7 +80,7 @@ public class ClientIntro implements Initializable {
 		Scene scene = new Scene(root);
 		//scene.getStylesheets().add("/styles/CategoryScene.css");
 		stage.setScene(scene);
-		stage.show();*/
+		stage.show();
 		changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
 		
 	}

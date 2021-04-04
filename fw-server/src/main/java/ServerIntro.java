@@ -22,14 +22,6 @@ import javafx.stage.Stage;
 public class ServerIntro implements Initializable {
 	
 	public static Server server;
-	public static HashMap<String,Scene> scenes;
-	
-	/*
-	 * Constructor, called before @FXML fields are populated
-	 *
-	public ServerIntro(HashMap<String,Scene> sceneMap) {
-		scenes = sceneMap;
-	}*/
 	
 	@FXML
 	private BorderPane bPane;
@@ -62,22 +54,33 @@ public class ServerIntro implements Initializable {
 	}
 	
 	/*
-	 * Get SceneMap
-	 */
-	
-	/*
 	 * Connect Button initializes a Server object listening on the 
 	 * specified port
 	 */
 	public void connectMethod(ActionEvent e) throws IOException {
-		/*server = new Server(data -> {
+		
+		// Get info on current Scene/Window
+		Node node=(Node) e.getSource();
+		Stage stage=(Stage) node.getScene().getWindow();
+		//Scene scene = node.getScene();
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ServerScene.fxml"));
+		Scene scene = new Scene(loader.load());
+		scene.getStylesheets().add("/styles/ServerScene.css");
+		stage.setScene(scene);
+		ServerScene controller = loader.getController();
+		
+		server = new Server(data -> {
 			Platform.runLater(() -> {
-				System.out.println(data.toString());
+				// replace this line with 'AddServerEvent to ServerScene Listview'
+				//System.out.println(data.toString());
+				controller.updateServerLogs(data.toString());
 			});
 		});
-		*/
 		
-		changeScene(e, "/FXML/ServerScene.fxml","/styles/ServerScene.css");
+		stage.show();
+		
+		//changeScene(e, "/FXML/ServerScene.fxml","/styles/ServerScene.css");
 	}
 	
 	/*

@@ -15,10 +15,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.control.ListView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ServerScene implements Initializable {
 	
 	public static Server server;
+	private ObservableList<String> logs;
+	
+	public ServerScene() {
+		logs = FXCollections.observableArrayList();
+	}
 	
 	@FXML
 	private VBox vbox;
@@ -31,9 +38,12 @@ public class ServerScene implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-        
+		
 	}
 	
+	public void updateServerLogs(String data) {
+		logs.add(data);
+		serverLogs.setItems(logs);
+	}
 	
 }

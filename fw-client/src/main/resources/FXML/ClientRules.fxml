@@ -14,19 +14,18 @@
 	</top>
 	<center>
 		<VBox fx:id="rulesBox" spacing = "10">
-			<Text fx:id="rulesText" text ="
-				1. Press Start and begin the same
-				2. Choose a category in the category scene
-				3. Start the game by guessing the characters
-				4. Keep track of how many guesses left in bottom of the screen
-				5. If you guessed it right then you won the game/else you lost
-				6. Press Main to begin the game again" />
+			<Text fx:id="rulesText" text ="1. Press Start and begin the same" />
+			<Text fx:id="rulesText" text ="2. Choose a category in the category scene" />
+			<Text fx:id="rulesText" text ="3. Start the game by guessing the characters" />
+			<Text fx:id="rulesText" text ="4. Keep track of how many guesses left in bottom of the screen" />
+			<Text fx:id="rulesText" text ="5. If you guessed it right then you won the game/else you lost" />
+			<Text fx:id="rulesText" text ="6. Press Main to begin the game again" />
 		</VBox>
 	</center>
 	<bottom>
 		<HBox fx:id="menuBox" spacing="70">
-			<Button fx:id="backButton" text="Back"/>
-			<Button fx:id="exitButton" text="Exit"/>
+			<Button fx:id="backButton" text="Back" onAction = "#backMethod" />
+			<Button fx:id="exitButton" text="Exit" onAction = "#exitMethod" />
 		</HBox>
 	</bottom>
 

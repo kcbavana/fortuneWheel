@@ -17,3 +17,8 @@
 #bottomBox {
 	-fx-alignment: center;
 }
+#portField {
+	-fx-alignment: center;
+	-fx-padding: 0 10px 0 10px;
+
+}

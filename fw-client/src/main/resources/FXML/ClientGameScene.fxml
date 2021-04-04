@@ -29,9 +29,9 @@
 	</center>
 	<bottom>
 		<HBox fx:id="menuBox" spacing="70">
-			<Button fx:id="newGameButton" text="New Game"/>
+			<Button fx:id="newGameButton" text="New Game" onAction = "#newGameMethod"/>
 			<Text fx:id="guessesText" text = "Guesses Left: "/>
-			<Button fx:id="exitButton" text="Exit"/>
+			<Button fx:id="exitButton" text="Exit" onAction = "#exitMethod"/>
 		</HBox>
 	</bottom>
 </BorderPane>

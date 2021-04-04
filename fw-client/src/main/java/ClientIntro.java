@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class ClientIntro implements Initializable {
 	
 	public Client client;
-	public HashMap<String,Scene> scenes;
+
 	
 	@FXML
 	private BorderPane bPane;
@@ -31,6 +31,15 @@ public class ClientIntro implements Initializable {
 	
 	@FXML
 	private Text title;
+	
+	@FXML
+	private VBox portField;
+	
+	@FXML
+	private TextField portNumber;
+	
+	@FXML
+	private TextField ipPort;
 	
 	@FXML
 	private Text subTitle;
@@ -74,6 +83,16 @@ public class ClientIntro implements Initializable {
 		stage.show();*/
 		changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
 		
+	}
+	
+	public void rulesMethod(ActionEvent e) throws IOException {
+		changeScene(e,"/FXML/ClientRules.fxml","/styles/ClientRules.css");
+	}
+	
+	public void exitMethod(ActionEvent e) throws IOException {
+		Node node=(Node) e.getSource();
+		Stage stage=(Stage) node.getScene().getWindow();
+		stage.close();
 	}
 	
 	/*

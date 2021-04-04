@@ -57,7 +57,13 @@ public class ClientGameScene implements Initializable {
 	private Text gameText;
 	
 	@FXML
+	private HBox sendBox;
+	
+	@FXML
 	private TextField sendCharBox;
+	
+	@FXML
+	private Button sendButton;
 	
 	@FXML
 	private HBox menuBox;

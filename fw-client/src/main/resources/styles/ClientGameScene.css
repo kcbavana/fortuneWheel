@@ -35,3 +35,7 @@
 #titleVBox {
 	-fx-alignment: center;
 }
+
+#sendBox {
+	-fx-alignment: center;
+}

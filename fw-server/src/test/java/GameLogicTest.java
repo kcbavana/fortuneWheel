@@ -218,14 +218,14 @@ class GameLogicTest
 	}
 	
 	/*
-	 * Test accuracy of messages that GameLogic will pass to Server 
+	 * Test methods that manage game State:
+	 * 
+	 * Since words are retrieved at random, I will guess each vowel to test
+	 * these behaviors. There will be at least one hit and one miss that can
+	 * validate the behaviors of these methods
 	 */
-	//TODO: test getWordSize
-	
-	// Since words are retrieved at random, I will guess each vowel to test
-	// There will be at least one hit and miss, and results can be validated
 	@Test
-	void testGetCharLocation()
+	void testPlayNextGuessOutput()
 	{
 		String vowelArray = "aeiou";
 		String locations = null;
@@ -235,7 +235,7 @@ class GameLogicTest
 		// Guess each vowel
 		for(char c:vowelArray.toCharArray())
 		{
-			locations = game.getCharLocation(c);
+			locations = game.playNextGuess(c);
 			if(locations != "-1")	// vowel found in currentWord
 			{
 				for(char ch:locations.toCharArray())
@@ -245,20 +245,45 @@ class GameLogicTest
 					 * of currentWord == char?
 					 */
 					assertEquals(c, game.getCurrentWord().charAt(Character.getNumericValue(ch)),
-							"getCharLocation failed");
+							"playNextGuess failed");
 				}
 			}
 			else // vowel not found in currentword
 			{
 				for(char ch:game.getCurrentWord().toCharArray())
 				{
-					assertNotEquals(c,ch,"false negative in getCharLocation");
+					assertNotEquals(c,ch,"false negative in playNextGuess");
 				}
 			}
 			
-		}
-		
-		
-	}
+		} // end for loop
+	} // end Test
 	
+	@Test
+	void testUpdateGuessArray()
+	{
+		String vowelArray = "aeiou";
+		String locations = null;
+		game.setCategory("Movies");
+		game.playNextWord();
+		
+		// Guess each vowel
+		for(char c:vowelArray.toCharArray())
+		{
+			locations = game.playNextGuess(c);
+			if(locations != "-1")	// vowel found in currentWord
+			{
+				for(char ch:locations.toCharArray())
+				{
+					/*
+					 * Does each char in locations correspond to an index
+					 * of guessArray == char?
+					 */
+					System.out.println(game.getGuessArray());
+					assertEquals(c, game.getGuessArray()[Character.getNumericValue(ch)],
+							"playNextGuess did not update guessArray properly");
+				}
+			}		
+		} // end for loop
+	} // end Test
 }

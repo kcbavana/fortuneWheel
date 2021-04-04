@@ -191,7 +191,7 @@ public class GameLogic {
 	}
 	
 	/*
-	 * Functions to initialize the game for the next word to be guessed
+	 * Methods to initialize the game
 	 */
 	
 	// get word from input category. No setter for the Category ArrayLists
@@ -250,15 +250,23 @@ public class GameLogic {
 	}
 	
 	/*
-	 * Functions that manage an ongoing game
+	 * Methods that manage an ongoing game
 	 */
-	public Integer getWordSize()
-	{
+	/*
 		return currentWord.length();
+	}*/
+	
+	// Use locations String to 'fill in' guessArray with guessed char
+	private void updateGuessArray(String locations, char guess)
+	{
+		for(char c: locations.toCharArray())
+		{
+			guessArray[Character.getNumericValue(c)] = guess;
+		}
 	}
 	
 	// input char, output String of numbers corresponding to array indices == char
-	public String getCharLocation(char guess)
+	public String playNextGuess(char guess)
 	{
 		String locations = new String();
 		// parse currentWord
@@ -269,12 +277,21 @@ public class GameLogic {
 				locations = locations + String.valueOf(i);
 			}
 		}
-		// return -1 if locations is empty
+		// return -1 if locations is empty and use one guess
 		if(locations.isEmpty())
 		{
 			locations = "-1";
 		}
+		// add guessed char to guessArray
+		else
+		{
+			updateGuessArray(locations,guess);
+		}
 		return locations;
 	}
+	
+	/*
+	 * Methods that check and manage end-game states
+	 */
 	
 }

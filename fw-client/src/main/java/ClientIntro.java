@@ -74,13 +74,13 @@ public class ClientIntro implements Initializable {
 		client.start();
 		
 		//Change Scene
-		Node node=(Node) e.getSource();
+		/*Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
 		Parent root = FXMLLoader.load(getClass().getResource("/FXML/CategoryScene.fxml"));
 		Scene scene = new Scene(root);
-		//scene.getStylesheets().add("/styles/CategoryScene.css");
+		scene.getStylesheets().add("/styles/CategoryScene.css");
 		stage.setScene(scene);
-		stage.show();
+		stage.show();*/
 		changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
 		
 	}

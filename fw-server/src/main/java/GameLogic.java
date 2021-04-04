@@ -6,15 +6,15 @@ public class GameLogic {
 	// current game state
 	private String currentWord;
 	private String currentCategory;
-	Integer guesses;
+	private Integer guesses;
 	// Win count
-	Boolean winAnimal;
-	Boolean winMovie;
-	Boolean winPlace;
+	private Boolean winAnimal;
+	private Boolean winMovie;
+	private Boolean winPlace;
 	// Loss count
-	Integer lossAnimal;
-	Integer lossMovie;
-	Integer lossPlace;
+	private Integer lossAnimal;
+	private Integer lossMovie;
+	private Integer lossPlace;
 	// Name of each category
 	//String Animals;
 	//String Movies;
@@ -25,9 +25,9 @@ public class GameLogic {
 	private ArrayList<String> wordsPlace;
 	private ArrayList<String> wordsUsed;
 	// Array for tracking guessed letters
-	String guessArray;
+	private char[] guessArray;
 	// Generate random numbers
-	Random random;
+	private Random random;
 	
 	// Constructor, init starting game values
 	public GameLogic() 
@@ -35,6 +35,7 @@ public class GameLogic {
 		// Start with no current word/category
 		currentWord = null;
 		currentCategory = null;
+		guessArray = null;
 		guesses = 6;
 		// no wins
 		winAnimal = false;
@@ -65,26 +66,24 @@ public class GameLogic {
 		wordsMovie.add("avatar");
 		wordsMovie.add("spiderman");
 		wordsMovie.add("interstellar");
-		wordsMovie.add("john wick");
+		wordsMovie.add("it");
 		wordsMovie.add("logan");
 		wordsMovie.add("hellraiser");
-		wordsMovie.add("scott pilgrim vs the world");
-		wordsMovie.add("step brothers");
+		wordsMovie.add("brick");
+		wordsMovie.add("hereditary");
 		wordsMovie.add("parasite");
 		wordsPlace = new ArrayList<String>();
 		wordsPlace.add("chicago");
 		wordsPlace.add("italy");
-		wordsPlace.add("new york");
-		wordsPlace.add("san francisco");
+		wordsPlace.add("nashville");
+		wordsPlace.add("california");
 		wordsPlace.add("berlin");
 		wordsPlace.add("prague");
 		wordsPlace.add("paris");
 		wordsPlace.add("london");
 		wordsPlace.add("tokyo");
-		wordsPlace.add("hong kong");
+		wordsPlace.add("ontario");
 		wordsUsed = new ArrayList<String>();
-		// null guessArray
-		guessArray = null;
 		// init random
 		random = new Random();
 	}
@@ -100,12 +99,7 @@ public class GameLogic {
 	{
 		return currentWord;
 	}
-	
-	/*private void setCurrentWord(String word)
-	{
-		currentWord = word;
-	}*/
-	
+
 	// get/set currentCategory
 	public String getCategory()
 	{
@@ -127,15 +121,9 @@ public class GameLogic {
 		}
 	}
 	
-	// get/set guesses
 	public Integer getGuesses()
 	{
 		return guesses;
-	}
-	
-	public void setGuesses(Integer newGuesses)
-	{
-		guesses = newGuesses;
 	}
 	
 	// Did the user guess a word in this category?
@@ -197,8 +185,13 @@ public class GameLogic {
 		}
 	}
 	
+	public char[] getGuessArray()
+	{
+		return guessArray;
+	}
+	
 	/*
-	 * Select unused word to be guessed, and add it to usedWords
+	 * Functions to initialize the game for the next word to be guessed
 	 */
 	
 	// get word from input category. No setter for the Category ArrayLists
@@ -215,18 +208,6 @@ public class GameLogic {
 		return null;
 	}
 	
-	// add/clear words to usedWords
-	/*
-	private void addToUsedWords(String word)
-	{
-		wordsUsed.add("word");
-	}
-	
-	private void clearUsedWords()
-	{
-		wordsUsed.clear();
-	}*/
-	
 	// Check usedWords for input word
 	private Boolean checkUsedWords(String word)
 	{
@@ -240,6 +221,18 @@ public class GameLogic {
 		return false;
 	}
 	
+	// Set guessArray as array of underscores == currentWord.length()
+	private void initGuessArray()
+	{
+		// init String identical to currentWord
+		guessArray = currentWord.toCharArray();
+		// set every value to _
+		for(int i = 0; i < currentWord.length(); i++)
+		{
+			guessArray[i] = '_';
+		}
+	}
+	
 	// Use private functions to set next Word
 	public void playNextWord()
 	{
@@ -250,15 +243,38 @@ public class GameLogic {
 		{
 			temp = getWordFromCategory(currentCategory);
 		}
-		wordsUsed.add(temp);
+		// Init new word and add to ArrayList of used words
 		currentWord = temp;
+		initGuessArray();
+		wordsUsed.add(temp);
 	}
 	
-	// 
+	/*
+	 * Functions that manage an ongoing game
+	 */
+	public Integer getWordSize()
+	{
+		return currentWord.length();
+	}
 	
-	
-	
-
-	
+	// input char, output String of numbers corresponding to array indices == char
+	public String getCharLocation(char guess)
+	{
+		String locations = new String();
+		// parse currentWord
+		for(int i = 0; i < currentWord.length(); i++)
+		{
+			if (currentWord.charAt(i) == guess)
+			{
+				locations = locations + String.valueOf(i);
+			}
+		}
+		// return -1 if locations is empty
+		if(locations.isEmpty())
+		{
+			locations = "-1";
+		}
+		return locations;
+	}
 	
 }

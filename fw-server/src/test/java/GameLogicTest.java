@@ -41,7 +41,7 @@ class GameLogicTest
 	 * String currentCategory
 	 */
 	@Test
-	void testAnimalCategory()
+	void testCategoryInit()
 	{
 		game.setCategory("Animals");
 		assertEquals("Animals", game.getCategory(), "get/set Animals category failed");
@@ -55,11 +55,11 @@ class GameLogicTest
 	 * Integer guesses
 	 */
 	@Test
-	void testGetGuesses()
+	void testGetGuessesInit()
 	{
 		assertEquals(6, game.getGuesses(), "getGuesses() failed");
 	}
-	
+	/*
 	@Test
 	void testDecrementingGuesses()
 	{
@@ -69,12 +69,11 @@ class GameLogicTest
 		assertEquals(4, game.getGuesses(), "getGuesses() failed while decrementing");
 		game.setGuesses(game.getGuesses()-1);
 		assertEquals(3, game.getGuesses(), "getGuesses() failed while decrementing");
-	}
+	}*/
 	
 	/*
 	 * Boolean winAnimal, winPlace, winMovie
 	 * Test functionality of tracking users' completion of categories
-	 * 		- setWin() is private
 	 */
 	@Test
 	void testGetWins()
@@ -101,7 +100,6 @@ class GameLogicTest
 	
 	/*
 	 * Integer lossAnimal, lossMovie, lossPlace
-	 * 		-setLoss is private
 	 */
 	@Test
 	void testGetLoss()
@@ -109,6 +107,43 @@ class GameLogicTest
 		assertEquals(0, game.getLoss("Animals"));
 		assertEquals(0, game.getLoss("Movies"));
 		assertEquals(0, game.getLoss("Places"));
+	}
+	
+	/*
+	 * Test guessArray function
+	 */
+	@Test
+	void testGetGuessArrayAtStart()
+	{
+		assertNull(game.getGuessArray(), "guessArray init failed");
+	}
+	
+	@Test
+	void testInitGuessArray()
+	{
+		game.setCategory("Animals");
+		game.playNextWord();
+		// assert each character of guessArray is an underscore
+		for(char c:game.getGuessArray())
+		{
+			assertEquals('_', c,"InitGuessArray() failed for Animals category");
+		}
+		
+		game.setCategory("Movies");
+		game.playNextWord();
+		// assert each character of guessArray is an underscore
+		for(char c:game.getGuessArray())
+		{
+			assertEquals('_', c,"InitGuessArray() failed for Movies category");
+		}
+		
+		game.setCategory("Places");
+		game.playNextWord();
+		// assert each character of guessArray is an underscore
+		for(char c:game.getGuessArray())
+		{
+			assertEquals('_', c,"InitGuessArray() failed for Places category");
+		}
 	}
 	
 	/*
@@ -120,16 +155,17 @@ class GameLogicTest
 	{
 		ArrayList<String> uniqueWordsPlayed = new ArrayList<String>();
 		game.setCategory("Animals");
-		// play 10 words, assert each word played is unique
+		// play 10 words
 		for (int i = 0; i < 10; i++)
 		{
 			game.playNextWord();
 			for (String s:uniqueWordsPlayed)
 			{
+				// assert word is unique
 				assertNotEquals(s,game.getCurrentWord(),
 						"non-unique word played in Animals Category");
 			}
-			System.out.println(game.getCurrentWord());
+			//System.out.println(game.getCurrentWord());
 			uniqueWordsPlayed.add(game.getCurrentWord());
 		}
 		// Assert size of wordsPlayed == 10
@@ -151,7 +187,7 @@ class GameLogicTest
 				assertNotEquals(s,game.getCurrentWord(),
 						"non-unique word played in Movies Category");
 			}
-			System.out.println(game.getCurrentWord());
+			//System.out.println(game.getCurrentWord());
 			uniqueWordsPlayed.add(game.getCurrentWord());
 		}
 		// Assert size of wordsPlayed == 10
@@ -173,7 +209,7 @@ class GameLogicTest
 				assertNotEquals(s,game.getCurrentWord(),
 						"non-unique word played in Places Category");
 			}
-			System.out.println(game.getCurrentWord());
+			//System.out.println(game.getCurrentWord());
 			uniqueWordsPlayed.add(game.getCurrentWord());
 		}
 		// Assert size of wordsPlayed == 10
@@ -181,7 +217,48 @@ class GameLogicTest
 				"incorrect uniqueWordsPlayed.size() for Places Category");
 	}
 	
+	/*
+	 * Test accuracy of messages that GameLogic will pass to Server 
+	 */
+	//TODO: test getWordSize
 	
-	
+	// Since words are retrieved at random, I will guess each vowel to test
+	// There will be at least one hit and miss, and results can be validated
+	@Test
+	void testGetCharLocation()
+	{
+		String vowelArray = "aeiou";
+		String locations = null;
+		game.setCategory("Movies");
+		game.playNextWord();
+		
+		// Guess each vowel
+		for(char c:vowelArray.toCharArray())
+		{
+			locations = game.getCharLocation(c);
+			if(locations != "-1")	// vowel found in currentWord
+			{
+				for(char ch:locations.toCharArray())
+				{
+					/*
+					 * Does each char in locations correspond to an index
+					 * of currentWord == char?
+					 */
+					assertEquals(c, game.getCurrentWord().charAt(Character.getNumericValue(ch)),
+							"getCharLocation failed");
+				}
+			}
+			else // vowel not found in currentword
+			{
+				for(char ch:game.getCurrentWord().toCharArray())
+				{
+					assertNotEquals(c,ch,"false negative in getCharLocation");
+				}
+			}
+			
+		}
+		
+		
+	}
 	
 }

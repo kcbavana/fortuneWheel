@@ -27,6 +27,8 @@ public class Client extends Thread{
 	public static Integer totalWins = 0;
 	public static Integer totalLoses = 0;
 	
+	public String ip = ClientIntro.portNumberRes;
+	public int portNumber = Integer.parseInt(ClientIntro.ipAddressRes);
 	
 	private Consumer<Serializable> callback;
 	
@@ -38,7 +40,7 @@ public class Client extends Thread{
 	public void run() {
 		
 		try {
-		socketClient= new Socket("127.0.0.1",5555);
+		socketClient= new Socket(ip,portNumber);
 	    out = new ObjectOutputStream(socketClient.getOutputStream());
 	    in = new ObjectInputStream(socketClient.getInputStream());
 	    socketClient.setTcpNoDelay(true);

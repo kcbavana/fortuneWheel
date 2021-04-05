@@ -42,7 +42,7 @@ public class ClientGameScene implements Initializable {
 	private Text title;
 	
 	@FXML
-	private org.w3c.dom.Text winsText;
+	private Text winsText;
 	
 	@FXML
 	private Text currentCategory;
@@ -80,8 +80,8 @@ public class ClientGameScene implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		currentCategory.setText("Current Category: " + Client.curCategory);
-		winsText.setTextContent("Total Wins: " + Client.totalWins);
-		losesText.setTextContent("Total Loses: " + Client.totalLosesalWins);
+		winsText.setText("Total Wins: " + Client.totalWins);
+		losesText.setText("Total Loses: " + Client.totalLoses);
 	}
 	
 	public void newGameMethod(ActionEvent e) throws IOException {

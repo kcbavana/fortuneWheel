@@ -56,22 +56,30 @@ public class ClientIntro implements Initializable {
 	@FXML
 	private Button exitButton;
 	
+	public static String portNumberRes;
+	public static String ipAddressRes;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		
         
 	}
-	
+
 	/*
 	 * Connect to server 
 	 */
 	public void connectMethod(ActionEvent e) throws IOException {
+		portNumberRes = portNumber.getText();
+		ipAddressRes =  ipPort.getText();
 		client = new Client(data -> {
 			Platform.runLater(() -> {
 				System.out.println(data.toString());
 			});
 		});
 		client.start();
+		
+		System.out.println("IP: " + ipAddressRes);
+		System.out.println("PortNumber: " + portNumberRes);
 		
 		//Change Scene
 		/*Node node=(Node) e.getSource();

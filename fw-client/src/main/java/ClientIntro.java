@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 public class ClientIntro implements Initializable {
 	
 	public Client client;
-
 	
 	@FXML
 	private BorderPane bPane;
@@ -56,8 +55,8 @@ public class ClientIntro implements Initializable {
 	@FXML
 	private Button exitButton;
 	
-	public static String portNumberRes;
-	public static String ipAddressRes;
+	public static String port;
+	public static String ip;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -69,8 +68,8 @@ public class ClientIntro implements Initializable {
 	 * Connect to server 
 	 */
 	public void connectMethod(ActionEvent e) throws IOException {
-		portNumberRes = portNumber.getText();
-		ipAddressRes =  ipPort.getText();
+		port = portNumber.getText();
+		ip =  ipPort.getText();
 		client = new Client(data -> {
 			Platform.runLater(() -> {
 				System.out.println(data.toString());
@@ -78,8 +77,8 @@ public class ClientIntro implements Initializable {
 		});
 		client.start();
 		
-		System.out.println("IP: " + ipAddressRes);
-		System.out.println("PortNumber: " + portNumberRes);
+		System.out.println("IP: " + ip);
+		System.out.println("PortNumber: " + port);
 		
 		//Change Scene
 		/*Node node=(Node) e.getSource();

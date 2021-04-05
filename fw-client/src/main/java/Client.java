@@ -12,8 +12,8 @@ public class Client extends Thread{
 	
 	Socket socketClient;
 	
-	ObjectOutputStream out;
-	ObjectInputStream in;
+	static ObjectOutputStream out;
+	static ObjectInputStream in;
 	
 	public static String curCategory;
 	public static Integer animalWins = 0;
@@ -25,8 +25,8 @@ public class Client extends Thread{
 	public static Integer totalWins = 0;
 	public static Integer totalLoses = 0;
 	
-	public String ip = ClientIntro.portNumberRes;
-	public int portNumber = Integer.parseInt(ClientIntro.ipAddressRes);
+	public String ip = ClientIntro.ip;
+	public int portNumber = Integer.valueOf(ClientIntro.port);
 	
 	private Consumer<Serializable> callback;
 	
@@ -38,10 +38,10 @@ public class Client extends Thread{
 	public void run() {
 		
 		try {
-		socketClient= new Socket(ip,portNumber);
-	    out = new ObjectOutputStream(socketClient.getOutputStream());
-	    in = new ObjectInputStream(socketClient.getInputStream());
-	    socketClient.setTcpNoDelay(true);
+			socketClient= new Socket(ip,portNumber);
+		    out = new ObjectOutputStream(socketClient.getOutputStream());
+		    in = new ObjectInputStream(socketClient.getInputStream());
+		    socketClient.setTcpNoDelay(true);
 		}
 		catch(Exception e) {}
 		
@@ -56,7 +56,7 @@ public class Client extends Thread{
 	
     }
 	
-	public void send(String data) {
+	public static void send(String data) {
 		
 		try {
 			out.writeObject(data);
@@ -65,6 +65,10 @@ public class Client extends Thread{
 			e.printStackTrace();
 		}
 	}
+	
+	/*
+	 * 
+	 */
 
 
 }

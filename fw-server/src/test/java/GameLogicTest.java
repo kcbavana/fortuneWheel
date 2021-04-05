@@ -236,7 +236,7 @@ class GameLogicTest
 		for(char c:vowelArray.toCharArray())
 		{
 			locations = game.playNextGuess(c);
-			if(locations != "-1")	// vowel found in currentWord
+			if(!locations.startsWith("-"))	// vowel found in currentWord
 			{
 				for(char ch:locations.toCharArray())
 				{
@@ -271,7 +271,7 @@ class GameLogicTest
 		for(char c:vowelArray.toCharArray())
 		{
 			locations = game.playNextGuess(c);
-			if(locations != "-1")	// vowel found in currentWord
+			if(!locations.startsWith("-"))	// vowel found in currentWord
 			{
 				for(char ch:locations.toCharArray())
 				{
@@ -279,11 +279,12 @@ class GameLogicTest
 					 * Does each char in locations correspond to an index
 					 * of guessArray == char?
 					 */
-					System.out.println(game.getGuessArray());
 					assertEquals(c, game.getGuessArray()[Character.getNumericValue(ch)],
 							"playNextGuess did not update guessArray properly");
 				}
 			}		
 		} // end for loop
 	} // end Test
+	
+	// TODO: test playResult()
 }

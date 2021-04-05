@@ -16,7 +16,7 @@ public class Server{
 	ServerThread server;
 	private Consumer<Serializable> callback;
 	GameLogic logic = new GameLogic();
-	public int portNumber = Integer.parseInt(ServerIntro.portNumber);
+	int portNumber = Integer.parseInt(ServerIntro.portNumber);
 	Server(Consumer<Serializable> call){
 	
 		callback = call;
@@ -32,7 +32,6 @@ public class Server{
 			try(ServerSocket mysocket = new ServerSocket(portNumber)){
 		    System.out.println("Server is waiting for a client!");
 		  
-			
 		    while(true) {
 		
 				ClientThread c = new ClientThread(mysocket.accept(), count);
@@ -54,14 +53,19 @@ public class Server{
 		// Each client thread will run a GameLogic object
 		class ClientThread extends Thread{
 			
-			Socket connection;
 			int count;
+			Socket connection;
 			ObjectInputStream in;
 			ObjectOutputStream out;
+			GameLogic game;
 			
+			/*
+			 * Constructor, inits GameLogic object
+			 */
 			ClientThread(Socket s, int count){
 				this.connection = s;
-				this.count = count;	
+				this.count = count;
+				game = new GameLogic();
 			}
 			
 			public void updateClients(String message) {
@@ -72,6 +76,47 @@ public class Server{
 					}
 					catch(Exception e) {}
 				}
+			}
+			
+			// parse String sent from client and respond accordingly
+			public String parseMessage(String data)
+			{
+				System.out.println(data);
+				
+				// Play word from new category
+				if(data.equals("Animals") || data.equals("Movies") || data.equals("Places"))
+				{
+					game.setCategory(data);
+					game.playNextWord();
+					int wordSize = game.getCurrentWord().length();
+					return String.valueOf(wordSize);
+				}
+				// Play next guess
+				else if (data.length() == 1)
+				{
+					return game.playNextGuess(data.charAt(0));
+				}
+				// Check win conditions
+				else if (data.equals("Result"))
+				{
+					return game.playResult();
+				}
+				// Return misc. game state info
+				else 
+				{
+					switch(data)
+					{
+						case "winanimals":	return "todo";
+						case "winmovies":	return "todo";
+						case "winplaces":	return "todo";
+						case "lossanimals":	return "todo";
+						case "lossmovies":	return "todo";
+						case "lossplaces":	return "todo";
+					}
+						
+				}
+				// should not reach here
+				return "fail";
 			}
 			
 			public void run(){
@@ -90,7 +135,11 @@ public class Server{
 				 while(true) {
 					    try {
 					    	String data = in.readObject().toString();
-					    	callback.accept("client: " + count + " sent: " + data);
+					    	
+					    	// parse message from client
+					    	String response = parseMessage(data);
+					    	callback.accept(response);
+					    	//callback.accept("client: " + count + " sent: " + data);
 					    	updateClients("client #"+count+" said: "+data);
 					    	
 					    	}

@@ -15,10 +15,6 @@ public class GameLogic {
 	private Integer lossAnimal;
 	private Integer lossMovie;
 	private Integer lossPlace;
-	// Name of each category
-	//String Animals;
-	//String Movies;
-	//String Places;
 	// ArrayLists of words to guess
 	private ArrayList<String> wordsAnimal;
 	private ArrayList<String> wordsMovie;
@@ -45,10 +41,6 @@ public class GameLogic {
 		lossAnimal = 0;
 		lossMovie = 0;
 		lossPlace = 0;
-		// Store category Names for less manual input
-		//Animals = "Animals";
-		//Movies = "Movies";
-		//Places = "Places";
 		// Init and populate ArrayLists (default size is 10)
 		wordsAnimal = new ArrayList<String>();
 		wordsAnimal.add("monkey");
@@ -243,7 +235,6 @@ public class GameLogic {
 		{
 			temp = getWordFromCategory(currentCategory);
 		}
-		// Init new word and add to ArrayList of used words
 		currentWord = temp;
 		initGuessArray();
 		wordsUsed.add(temp);
@@ -252,10 +243,6 @@ public class GameLogic {
 	/*
 	 * Methods that manage an ongoing game
 	 */
-	/*
-		return currentWord.length();
-	}*/
-	
 	// Use locations String to 'fill in' guessArray with guessed char
 	private void updateGuessArray(String locations, char guess)
 	{
@@ -280,7 +267,8 @@ public class GameLogic {
 		// return -1 if locations is empty and use one guess
 		if(locations.isEmpty())
 		{
-			locations = "-1";
+			guesses-=1;
+			locations = "-" + String.valueOf(guesses);
 		}
 		// add guessed char to guessArray
 		else
@@ -293,5 +281,94 @@ public class GameLogic {
 	/*
 	 * Methods that check and manage end-game states
 	 */
+	private Boolean checkWin()
+	{
+		// game is won if currentWord == guessArray
+		if(currentWord == guessArray.toString())
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	private Boolean checkLoss()
+	{
+		// game is lost if guesses <=0
+		if(guesses <= 0)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	private Boolean checkWinGame()
+	{
+		// match is won if each category of wins is completed
+		if (getWin("Animals") && getWin("Movies") && getWin("Places"))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	private Boolean checkLoseGame()
+	{
+		// match is lost if each category has >= 3 losses
+		if (getLoss("Animals") >= 3 && getLoss("Movies") >= 3 && getLoss("Places") >= 3)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	// resets game state values
+	private void newGame()
+	{
+		wordsUsed.clear();
+		currentWord = null;
+		currentCategory = null;
+		guessArray = null;
+		guesses = 6;
+		// no wins
+		winAnimal = false;
+		winMovie = false;
+		winPlace = false;
+		// no losses
+		lossAnimal = 0;
+		lossMovie = 0;
+		lossPlace = 0;
+		
+	}
+	
+	// Uses private functions to update GameLogic and return results to client
+	public String playResult()
+	{
+		// return "win" if currentWord was successfully guessed
+		if(checkWin())
+		{
+			setWin(currentCategory,true);
+			return "win";
+		}
+		// return "loss" if player is out of guesses
+		else if (checkLoss())
+		{
+			setLoss(currentCategory, (getLoss(currentCategory)+1));
+			return "loss";
+		}
+		// return "wingame" if player has won the game
+		else if (checkWinGame())
+		{
+			newGame();
+			return "wingame";
+		}
+		// return "losegame" if player has lost the game
+		else if (checkLoseGame())
+		{
+			newGame();
+			return "losegame";
+		}
+		// return "continue" if game is unfinished
+		return "continue";
+	}
 	
 }

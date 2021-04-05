@@ -94,11 +94,11 @@ public class CategoryScene implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		animalsWin.setText("Wins: " + Client.animalWins);
-		animalsLoses.setText("Looses: " + Client.animalLoses);
+		animalsLoses.setText("Losses: " + Client.animalLoses);
 		moviesWin.setText("Wins: " + Client.moviesWins);
-		moviesLoses.setText("Looses: " + Client.moviesLoses);
+		moviesLoses.setText("Losses: " + Client.moviesLoses);
 		placesWin.setText("Wins: " + Client.placesWins);
-		placesLoses.setText("Looses: " + Client.placesLoses);
+		placesLoses.setText("Losses: " + Client.placesLoses);
         
 	}
 	
@@ -143,4 +143,5 @@ public class CategoryScene implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+	
 }

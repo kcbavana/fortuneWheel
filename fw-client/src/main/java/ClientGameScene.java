@@ -82,20 +82,30 @@ public class ClientGameScene implements Initializable {
 		currentCategory.setText("Current Category: " + Client.curCategory);
 		winsText.setText("Total Wins: " + Client.totalWins);
 		losesText.setText("Total Loses: " + Client.totalLoses);
+		gameText.setText(Client.guessArray.toString());
+		guessesText.setText(Client.guesses.toString());
 	}
 	
 	public void newGameMethod(ActionEvent e) throws IOException {
+		// TODO: call game.newGame()
 		changeScene(e,"/FXML/ClientIntro.fxml","/styles/ClientIntro.css");
 	}
 	
 	public void guessMethod() {
+		// Send guess
 		Client.send(sendCharBox.getText());
+		// Update Scene with updated Client info
+		gameText.setText(String.valueOf(Client.guessArray));
+		guessesText.setText(Client.guesses.toString());
+		
+		// TODO: checkForSceneChange()
 	}
 	
 	public void exitMethod(ActionEvent e) throws IOException {
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
 		stage.close();
+		//TODO: close client connection
 	}
 	
 	public void changeScene(ActionEvent e, String fxml, String css) throws IOException{

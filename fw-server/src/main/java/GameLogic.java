@@ -57,7 +57,7 @@ public class GameLogic {
 		wordsMovie.add("shrek");
 		wordsMovie.add("avatar");
 		wordsMovie.add("spiderman");
-		wordsMovie.add("interstellar");
+		wordsMovie.add("inception");
 		wordsMovie.add("it");
 		wordsMovie.add("logan");
 		wordsMovie.add("hellraiser");

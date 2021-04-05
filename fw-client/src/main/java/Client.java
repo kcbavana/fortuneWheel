@@ -15,6 +15,10 @@ public class Client extends Thread{
 	static ObjectOutputStream out;
 	static ObjectInputStream in;
 	
+	public static char[] guessArray;
+	public static Integer guesses;
+	public static char currentGuess;
+	
 	public static String curCategory;
 	public static Integer animalWins = 0;
 	public static Integer animalLoses = 0;
@@ -67,8 +71,91 @@ public class Client extends Thread{
 	}
 	
 	/*
-	 * 
+	 * Parse server response into static variables to manage game state
 	 */
+	public static void parseServerResponse(String data)
+	{
+		System.out.println("Server Response:" + data);
+		// received server message, prepended with 'l'
+		if (data.startsWith("l"))
+		{
+			// do nothing
+			return;
+		}
+		// received size of next word to guess with "w" prepended
+		else if (data.startsWith("w"))
+		{
+			String wordSizeStr = data.substring(1);
+			Integer wordSize = Integer.valueOf(wordSizeStr);
+			System.out.println("WordsizeStr: " + wordSizeStr);
+			System.out.println(wordSize);
+			initGuessArray(wordSize);
+			System.out.println("Guess Aray: " + guessArray.toString());
+			guesses = 6;
+		}
+		// Incorrect guess, received guesses remaining with "-" prepended
+		else if (data.startsWith("-"))
+		{
+			String guessesLeftStr = data.substring(1);
+			Integer guessesLeft = Integer.valueOf(guessesLeftStr);
+			guesses = guessesLeft;
+		}
+		/*
+		 * Process result of turn
+		 */
+		else if (data.equals("continue"))
+		{
+			// wait for next guess
+			return;
+		}
+		else if (data.equals("win"))
+		{
+			///TODO
+		}
+		else if (data.equals("lose"))
+		{
+			///TODO
+		}
+		else if (data.equals("wingame"))
+		{
+			///TODO
+		}
+		else if (data.equals("losegame"))
+		{
+			///TODO
+		}
+		// Received locations of correctly guessed letters
+		else
+		{
+			System.out.println("something is wrong");
+			return;
+		}
+	}
+	
+	// get game state variables
+	// public static String/Integer getGameState(String something)
+	
+	// Set guessArray as array of underscores == currentWord.length()
+	public static void initGuessArray(Integer wordSize)
+	{
+		guessArray = new char[wordSize];
+		
+		// set every value to _
+		for(int i = 0; i < wordSize; i++)
+		{
+			guessArray[i] = '_';
+		}
+	}
+		
+	public static void updateGuessArray(String locations, char guess)
+	{
+		for(char c: locations.toCharArray())
+		{
+			guessArray[Character.getNumericValue(c)] = guess;
+		}
+	}
+	
+	
 
 
 }

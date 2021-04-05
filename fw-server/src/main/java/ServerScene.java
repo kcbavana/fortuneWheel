@@ -42,8 +42,13 @@ public class ServerScene implements Initializable {
 	}
 	
 	public void updateServerLogs(String data) {
+		// server messages are prepended with l
+		//if (data.startsWith("l"))
+		//{
+			//logs.add(data.substring(1));
 		logs.add(data);
 		serverLogs.setItems(logs);
+		//}
 	}
 	
 }

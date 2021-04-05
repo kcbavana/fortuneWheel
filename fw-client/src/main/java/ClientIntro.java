@@ -73,7 +73,7 @@ public class ClientIntro implements Initializable {
 		System.out.println("IP test: " + ip);
 		client = new Client(data -> {
 			Platform.runLater(() -> {
-				System.out.println(data.toString());
+				Client.parseServerResponse(data.toString());
 			});
 		});
 		client.start();

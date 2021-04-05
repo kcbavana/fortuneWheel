@@ -38,7 +38,7 @@ public class Client extends Thread{
 	public void run() {
 		
 		try {
-			socketClient= new Socket(ip,portNumber);
+			socketClient= new Socket(ip, portNumber);
 		    out = new ObjectOutputStream(socketClient.getOutputStream());
 		    in = new ObjectInputStream(socketClient.getInputStream());
 		    socketClient.setTcpNoDelay(true);

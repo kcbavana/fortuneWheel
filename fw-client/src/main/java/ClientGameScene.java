@@ -88,6 +88,10 @@ public class ClientGameScene implements Initializable {
 		changeScene(e,"/FXML/ClientIntro.fxml","/styles/ClientIntro.css");
 	}
 	
+	public void guessMethod() {
+		Client.send(sendCharBox.getText());
+	}
+	
 	public void exitMethod(ActionEvent e) throws IOException {
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();

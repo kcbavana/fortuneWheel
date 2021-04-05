@@ -70,6 +70,7 @@ public class ClientIntro implements Initializable {
 	public void connectMethod(ActionEvent e) throws IOException {
 		port = portNumber.getText();
 		ip =  ipPort.getText();
+		System.out.println("IP test: " + ip);
 		client = new Client(data -> {
 			Platform.runLater(() -> {
 				System.out.println(data.toString());

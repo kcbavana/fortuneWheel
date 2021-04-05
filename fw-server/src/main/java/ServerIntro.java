@@ -47,6 +47,8 @@ public class ServerIntro implements Initializable {
 	@FXML
 	private Button exitButton;
 	
+	public static String portNumber;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -58,7 +60,7 @@ public class ServerIntro implements Initializable {
 	 * specified port
 	 */
 	public void connectMethod(ActionEvent e) throws IOException {
-		
+		portNumber = portField.getText();
 		// Get info on current Scene/Window
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();

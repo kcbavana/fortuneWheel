@@ -15,8 +15,6 @@ public class Client extends Thread{
 	ObjectOutputStream out;
 	ObjectInputStream in;
 	
-	
-	
 	public static String curCategory;
 	public static Integer animalWins = 0;
 	public static Integer animalLoses = 0;

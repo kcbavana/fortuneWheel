@@ -94,13 +94,28 @@ public class Client extends Thread{
 			guesses = 6;
 			return;
 		}
-		// Incorrect guess, received guesses remaining with "-" prepended
-		else if (data.startsWith("-"))
+		/*
+		 * Process guess
+		 */
+		else if (data.startsWith("g"))
 		{
-			String guessesLeftStr = data.substring(1);
-			Integer guessesLeft = Integer.valueOf(guessesLeftStr);
-			guesses = guessesLeft;
-			return;
+			// strip e
+			String guess = data.substring(1);
+			// Incorrect guess, received guesses remaining with "-" prepended
+			if (guess.startsWith("-"))
+			{
+				String guessesLeftStr = guess.substring(1);
+				Integer guessesLeft = Integer.valueOf(guessesLeftStr);
+				guesses = guessesLeft;
+				return;
+			}
+			// Received locations of correctly guessed letters
+			else
+			{
+				//System.out.println("processed guess");
+				updateGuessArray(guess,currentGuess);
+				return;
+			}
 		}
 		/*
 		 * Process result of turn
@@ -147,13 +162,7 @@ public class Client extends Thread{
 		{
 			///TODO
 		}
-		// Received locations of correctly guessed letters
-		else
-		{
-			System.out.println("something is no longer wrong");
-			updateGuessArray(data,currentGuess);
-			return;
-		}
+		
 	}
 	
 	/*
@@ -211,6 +220,8 @@ public class Client extends Thread{
 			guessArray[Character.getNumericValue(c)] = guess;
 		}
 	}
+	
+	// Reset values for new game
 	
 	
 

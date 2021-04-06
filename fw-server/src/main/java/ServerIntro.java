@@ -70,27 +70,46 @@ public class ServerIntro implements Initializable {
 	}
 	
 	public String updateServerLogIntro(String data) {
-		if(data.contains("client has connected to server:")) {
-			return data;
+		// Strip Client Info 
+		// Server logs
+		if(data.startsWith("l"))
+		{
+			return data.substring(1);
 		}
-		else if(data.contains("OOOP")) {
-			return data;
-		}
+		// New word
 		else if(data.charAt(0) == 'w') {
 			return "Word Size is: " + data.substring(1);
 		}
+		// endGame check
 		else if (data.charAt(0) == 'e')
 		{
 			switch(data.substring(1))
 			{
-				case "win": return "Win";
-				case "loss": return "loss";
+				case "win": return "Correctly Guessed Word";
+				case "loss": return "Loss";
 				case "wingame": return "Win Game!";
-				case "losegame": return "Lose Game! Sorry";
+				case "losegame": return "Lose Game";
 				default:	return "continue";
 						
 			}
 		}
+		// process Guess
+		else if(data.charAt(0) == 'g')
+		{
+			String guess = data.substring(1);
+			// loss
+			if(guess.equals("-0"))
+			{
+				return "continue";
+			}
+			else if(Integer.valueOf(guess) >= 0) {
+				return "Correct Guess";
+			}
+			else if(Integer.valueOf(guess) < 0) {
+				return "Incorrect Guess";
+			}
+		}
+		/*
 		else if(data.equals("-0"))
 		{
 			return "continue";
@@ -98,7 +117,7 @@ public class ServerIntro implements Initializable {
 		else if(Integer.valueOf(data) >= 0) {
 			return "Client Guessed it right";
 		}
-		/*
+		
 		else if(Integer.valueOf(data) >= 0 && data.length() >= 2 && data.charAt(0) != 'e') 
 		{
 			String retValue = "Guesses are at ";
@@ -111,10 +130,10 @@ public class ServerIntro implements Initializable {
 			}
 			retValue += " indicies";
 			return retValue;
-		}*/
+		}
 		else if(Integer.valueOf(data) < 0) {
 			return "Sorry, its a wrong guess";
-		}
+		}*/
 		return data;
 	}
 

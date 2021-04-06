@@ -81,7 +81,7 @@ public class Server{
 			// parse String sent from client and respond accordingly
 			public String parseMessage(String data)
 			{
-				//System.out.println(data);
+				System.out.println("parseMessage: " + data);
 				
 				// Play word from new category
 				if(data.equals("Animals") || data.equals("Movies") || data.equals("Places"))
@@ -124,7 +124,7 @@ public class Server{
 					System.out.println("Streams not open");
 				}
 				
-				updateClients("new client on server: client #"+count);
+				updateClients("lnew client on server: client #"+count);
 					
 				 while(true) {
 					    try {
@@ -133,14 +133,16 @@ public class Server{
 					    	// parse message from client
 					    	String response = parseMessage(data);
 					    	out.writeObject(response);
-					    	callback.accept(response);
+					    	
+					    	callback.accept(response + ": Client " + count);
 					    	//callback.accept("client: " + count + " sent: " + data);
 					    	//updateClients("client #"+count+" said: "+data);
 					    	
 					    	}
 					    catch(Exception e) {
-					    	callback.accept("OOOOPPs...Something wrong with the socket from client: " + count + "....closing down!");
-					    	updateClients("Client #"+count+" has left the server!");
+					    	//System.out.println("exception: " + e);
+					    	callback.accept("lOOOOPPs...Something wrong with the socket from client: " + count + "....closing down!");
+					    	updateClients("lClient #"+count+" has left the server!");
 					    	clients.remove(this);
 					    	break;
 					    }

@@ -255,7 +255,7 @@ public class GameLogic {
 	// input char, output String of numbers corresponding to array indices == char
 	public String playNextGuess(char guess)
 	{
-		String locations = new String();
+		String locations = new String("g");
 		// parse currentWord
 		for(int i = 0; i < currentWord.length(); i++)
 		{
@@ -265,15 +265,15 @@ public class GameLogic {
 			}
 		}
 		// return -1 if locations is empty and use one guess
-		if(locations.isEmpty())
+		if(locations.length() == 1)
 		{
 			guesses-=1;
-			locations = "-" + String.valueOf(guesses);
+			locations = locations + "-" + String.valueOf(guesses);
 		}
 		// add guessed char to guessArray
 		else
 		{
-			updateGuessArray(locations,guess);
+			updateGuessArray(locations.substring(1),guess);
 		}
 		return locations;
 	}
@@ -283,9 +283,12 @@ public class GameLogic {
 	 */
 	private Boolean checkWin()
 	{
+		System.out.println("word: " + currentWord);
+		System.out.println("garr: " + String.valueOf(guessArray));
 		// game is won if currentWord == guessArray
-		if(currentWord == guessArray.toString())
+		if(currentWord.equals(String.valueOf(guessArray)))
 		{
+			System.out.println("win ack in gamelogic");
 			return true;
 		}
 		return false;
@@ -332,7 +335,7 @@ public class GameLogic {
 		// no wins
 		winAnimal = false;
 		winMovie = false;
-		winPlace = false;
+		winPlace = false; 
 		// no losses
 		lossAnimal = 0;
 		lossMovie = 0;

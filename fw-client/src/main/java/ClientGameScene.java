@@ -32,8 +32,9 @@ import javafx.scene.control.Label;
 
 public class ClientGameScene implements Initializable {
 	
-	PauseTransition pause = new PauseTransition(Duration.seconds(2));
-	
+	PauseTransition pause1 = new PauseTransition(Duration.seconds(1));
+	PauseTransition pause2 = new PauseTransition(Duration.seconds(2));
+
 	@FXML
 	private BorderPane bPane;
 	
@@ -91,12 +92,11 @@ public class ClientGameScene implements Initializable {
 		losesText.setText("Total Loses: " + Client.totalLoses);
 		//initValue = String.valueOf(Client.guessArray);
 		gameText.setText("Guess one letter");
-		pause.setOnFinished(e->{
-			System.out.println("This code runs");
+		pause2.setOnFinished(e->{
 			//gameText.setText(String.valueOf(Client.guessArray));
 			gameText.setText(spaceGuessArray());
 			});
-		pause.play();
+		pause2.play();
 		guessesText.setText("6");
 		
 	}
@@ -111,7 +111,13 @@ public class ClientGameScene implements Initializable {
 		// TODO: error check
 		Client.currentGuess = sendCharBox.getText().charAt(0);
 		Client.send(sendCharBox.getText());
-		// Update Scene with updated Client info
+		// Update Scene with updated Client info after pause
+		gameText.setText("Checking...");
+		pause1.setOnFinished(e->{
+			//gameText.setText(String.valueOf(Client.guessArray));
+			gameText.setText(spaceGuessArray());
+			});
+		pause1.play();
 		gameText.setText(String.valueOf(spaceGuessArray()));
 		guessesText.setText(String.valueOf(Client.guesses));
 		//initValue = String.valueOf(Client.guessArray);

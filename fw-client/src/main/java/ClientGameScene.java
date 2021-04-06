@@ -107,22 +107,30 @@ public class ClientGameScene implements Initializable {
 	}
 	
 	public void guessMethod() {
-		/*
-		 *  Send guess
-		 */
-		// TODO: error check
+		// Send guess
 		Client.currentGuess = sendCharBox.getText().charAt(0);
-		Client.send(sendCharBox.getText());
-		// Update Scene with updated Client info after pause
-		gameText.setText("Checking...");
-		/*
-		 * Check Results
-		 */
-		Client.send("Result");
-		pause1.setOnFinished(e->{
-			updateScene();
-			});
-		pause1.play();
+		String sender = sendCharBox.getText().toLowerCase(); // lowercase
+		if(sender.length() > 1) {
+			gameText.setText("One Letter Only");
+			pause1.setOnFinished(e->{
+				gameText.setText(spaceGuessArray());
+				});
+			pause1.play();
+		}
+		else {
+			// Update Scene with updated Client info after pause
+			Client.send(sender);
+			// Update Scene with updated Client info after pause
+			gameText.setText("Checking...");
+			/*
+			 * Check Results
+			 */
+			Client.send("Result");
+			pause1.setOnFinished(e->{
+				updateScene();
+				});
+			pause1.play();
+		}
 	}
 	
 	public void exitMethod(ActionEvent e) throws IOException {

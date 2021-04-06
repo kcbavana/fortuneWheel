@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import java.util.ResourceBundle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -102,15 +105,18 @@ public class CategoryScene implements Initializable {
         
 	}
 	
-	public void animalsMethod(ActionEvent e) throws IOException {
+	public void animalsMethod(ActionEvent e) throws IOException,InterruptedException {
 		Client.curCategory = "Animals";
 		Client.send("Animals");
+		//Thread.sleep(3000);
+		
 		changeScene(e,"/FXML/ClientGameScene.fxml","/styles/ClientGameScene.css");
 	}
 	
 	public void moviesMethod(ActionEvent e) throws IOException {
 		Client.curCategory = "Movies";
 		Client.send("Movies");
+		// Thread.sleep(3000);
 		changeScene(e,"/FXML/ClientGameScene.fxml","/styles/ClientGameScene.css");
 	}
 	

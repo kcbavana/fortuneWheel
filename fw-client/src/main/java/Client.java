@@ -90,7 +90,8 @@ public class Client extends Thread{
 			System.out.println("WordsizeStr: " + wordSizeStr);
 			System.out.println(wordSize);
 			initGuessArray(wordSize);
-			System.out.println("Guess Aray: " + guessArray.toString());
+			
+			System.out.println("Guess Aray: " + String.valueOf(guessArray));
 			guesses = 6;
 		}
 		// Incorrect guess, received guesses remaining with "-" prepended
@@ -136,15 +137,22 @@ public class Client extends Thread{
 	// public static String/Integer getGameState(String something)
 	
 	// Set guessArray as array of underscores == currentWord.length()
-	public static void initGuessArray(Integer wordSize)
+	public static void initGuessArray(int wordSize)
 	{
-		guessArray = new char[wordSize];
-		
+		//System.out.println("Wordsize in init: " + wordSize);
+		int size = wordSize + 1;
+		guessArray = new char[size];
+		//System.out.println("Wordsize in init: " + wordSize);
 		// set every value to _
 		for(int i = 0; i < wordSize; i++)
 		{
+			
 			guessArray[i] = '_';
+			//System.out.println("Guess Array in loop: " + guessArray[i]);
+			//System.out.println("Guess Array in loop: " + guessArray.toString());
 		}
+		//guessArray[wordSize] = '\0';
+		System.out.println("Guess Array in init: " + String.valueOf(guessArray));
 	}
 		
 	public static void updateGuessArray(String locations, char guess)

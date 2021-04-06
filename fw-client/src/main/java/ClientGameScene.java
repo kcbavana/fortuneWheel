@@ -25,9 +25,14 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
+import javafx.util.Duration;
+import javafx.scene.control.Label;
 
 public class ClientGameScene implements Initializable {
+	
+	PauseTransition pause = new PauseTransition(Duration.seconds(2));
 	
 	@FXML
 	private BorderPane bPane;
@@ -77,13 +82,22 @@ public class ClientGameScene implements Initializable {
 	@FXML
 	private Text guessesText;
 	
+	String initValue;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		currentCategory.setText("Current Category: " + Client.curCategory);
 		winsText.setText("Total Wins: " + Client.totalWins);
 		losesText.setText("Total Loses: " + Client.totalLoses);
-		gameText.setText(Client.guessArray.toString());
-		guessesText.setText(Client.guesses.toString());
+		//initValue = String.valueOf(Client.guessArray);
+		gameText.setText("Guess one letter");
+		pause.setOnFinished(e->{
+			System.out.println("This code runs");
+			gameText.setText(String.valueOf(Client.guessArray));
+			});
+		pause.play();
+		// guessesText.setText(Client.guesses.toString());
+		
 	}
 	
 	public void newGameMethod(ActionEvent e) throws IOException {
@@ -93,11 +107,12 @@ public class ClientGameScene implements Initializable {
 	
 	public void guessMethod() {
 		// Send guess
-		Client.send(sendCharBox.getText());
+		//Client.send(sendCharBox.getText());
 		// Update Scene with updated Client info
-		gameText.setText(String.valueOf(Client.guessArray));
-		guessesText.setText(Client.guesses.toString());
-		
+		//gameText.setText(String.valueOf(Client.guessArray));
+		//guessesText.setText(Client.guesses.toString());
+		//initValue = String.valueOf(Client.guessArray);
+		//gameText.setText(initValue);
 		// TODO: checkForSceneChange()
 	}
 	

@@ -22,7 +22,7 @@
 	</top>
 	<center>
 		<VBox fx:id="gameBox" spacing = "50">
-			<Text fx:id="gameText" text = "_ _ _ _ _ _ _ _ "/>
+			<Text fx:id="gameText"/>
 			<HBox fx:id="sendBox" spacing = "5">
 				<TextField fx:id="sendCharBox" text = "Guess Character: "/>
 				<Button fx:id="sendButton" text = "Guess" onAction = "#guessMethod"/>

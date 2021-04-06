@@ -83,7 +83,8 @@ public class ServerIntro implements Initializable {
 		// endGame check
 		else if (data.charAt(0) == 'e')
 		{
-			switch(data.substring(1))
+			String[] result = data.substring(1).split(":");
+			switch(result[0])
 			{
 				case "win": return "Correctly Guessed Word";
 				case "loss": return "Loss";
@@ -96,44 +97,26 @@ public class ServerIntro implements Initializable {
 		// process Guess
 		else if(data.charAt(0) == 'g')
 		{
+			String[] clientInfo = data.split(":");
 			String guess = data.substring(1);
 			// loss
-			if(guess.equals("-0"))
+			if(guess.contains("-0"))
 			{
 				return "continue";
 			}
+			else if(guess.contains("-"))
+				return "Incorrect Guess:" + clientInfo[1];
+			else
+			{
+				return "Correct Guess:" + clientInfo[1];
+			/*
 			else if(Integer.valueOf(guess) >= 0) {
 				return "Correct Guess";
 			}
 			else if(Integer.valueOf(guess) < 0) {
-				return "Incorrect Guess";
+				return "Incorrect Guess";*/
 			}
 		}
-		/*
-		else if(data.equals("-0"))
-		{
-			return "continue";
-		}
-		else if(Integer.valueOf(data) >= 0) {
-			return "Client Guessed it right";
-		}
-		
-		else if(Integer.valueOf(data) >= 0 && data.length() >= 2 && data.charAt(0) != 'e') 
-		{
-			String retValue = "Guesses are at ";
-			for(int i = 0; i<data.length(); i++) {
-				retValue += data.charAt(i);
-				if(i == data.length()-1) {
-					break;
-				}
-				retValue += " and at ";
-			}
-			retValue += " indicies";
-			return retValue;
-		}
-		else if(Integer.valueOf(data) < 0) {
-			return "Sorry, its a wrong guess";
-		}*/
 		return data;
 	}
 

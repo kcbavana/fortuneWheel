@@ -127,7 +127,8 @@ public class Client extends Thread{
 		// Received locations of correctly guessed letters
 		else
 		{
-			System.out.println("something is wrong");
+			System.out.println("something is no longer wrong");
+			updateGuessArray(data,currentGuess);
 			return;
 		}
 	}
@@ -139,7 +140,7 @@ public class Client extends Thread{
 	public static void initGuessArray(int wordSize)
 	{
 		//System.out.println("Wordsize in init: " + wordSize);
-		int size = wordSize + 1;
+		int size = wordSize;
 		guessArray = new char[size];
 		//System.out.println("Wordsize in init: " + wordSize);
 		// set every value to _

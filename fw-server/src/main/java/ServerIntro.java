@@ -48,6 +48,8 @@ public class ServerIntro implements Initializable {
 	private Button exitButton;
 	
 	public static String portNumber;
+	private String portNumb = "5555";
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -55,12 +57,25 @@ public class ServerIntro implements Initializable {
         
 	}
 	
+	public String checkDefault(String checkStr) {
+		if(checkStr.equals("Enter the port number and press connect: ")) {
+			return portNumb;
+		}
+		else if(checkStr.equals(" ")) {
+			return portNumb;
+		}
+		else {
+			return checkStr;
+		}
+	}
+
 	/*
 	 * Connect Button initializes a Server object listening on the 
 	 * specified port
 	 */
 	public void connectMethod(ActionEvent e) throws IOException {
 		portNumber = portField.getText();
+		portNumber = checkDefault(portNumber);
 		// Get info on current Scene/Window
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();

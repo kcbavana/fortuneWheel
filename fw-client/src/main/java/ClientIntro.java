@@ -57,11 +57,51 @@ public class ClientIntro implements Initializable {
 	
 	public static String port;
 	public static String ip;
-	
+	private String portNumb = "5555";
+	private String ipNumb = "127.0.0.1";
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
         
+	}
+	
+	public int ipDotChecker(String ip) {
+		int tracker = 0;
+		for(int i = 0; i<ip.length(); i++) {
+			if(ip.charAt(i) == '.') {
+				tracker++;
+			}
+		}
+		return tracker;
+	}
+	public String checkPort(String checkStr) {
+		if(checkStr.equals("Type portNumber and hit enter: ")) {
+			return portNumb;
+		}
+		else if(checkStr.equals(" ")) {
+			return portNumb;
+		}
+		else {
+			return checkStr;
+		}
+	}
+	
+	public String checkIP(String checkStr) {
+		if(checkStr.equals("Type IP Address and hit enter: ")) {
+			return ipNumb;
+		}
+		else if(checkStr.equals(" ")) {
+			return ipNumb;
+		}
+		else if(ipDotChecker(ip) > 3) {
+			return ipNumb;
+		}
+		else if(ipDotChecker(ip) < 3) {
+			return ipNumb;
+		}
+		else {
+			return checkStr;
+		}
 	}
 
 	/*
@@ -69,7 +109,9 @@ public class ClientIntro implements Initializable {
 	 */
 	public void connectMethod(ActionEvent e) throws IOException {
 		port = portNumber.getText();
+		port = checkPort(port);
 		ip =  ipPort.getText();
+		ip = checkIP(ip);
 		System.out.println("IP test: " + ip);
 		client = new Client(data -> {
 			Platform.runLater(() -> {

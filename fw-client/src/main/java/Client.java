@@ -18,7 +18,6 @@ public class Client extends Thread{
 	public static char[] guessArray;
 	public static Integer guesses;
 	public static char currentGuess;
-	
 	public static String curCategory;
 	public static Integer animalWins = 0;
 	public static Integer animalLoses = 0;

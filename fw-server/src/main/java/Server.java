@@ -16,6 +16,7 @@ public class Server{
 	ServerThread server;
 	private Consumer<Serializable> callback;
 	GameLogic logic = new GameLogic();
+
 	int portNumber = Integer.parseInt(ServerIntro.portNumber);
 	Server(Consumer<Serializable> call){
 	
@@ -28,7 +29,6 @@ public class Server{
 	public class ServerThread extends Thread{
 		
 		public void run() {
-		
 			try(ServerSocket mysocket = new ServerSocket(portNumber)){
 		    System.out.println("Server is waiting for a client!");
 		  

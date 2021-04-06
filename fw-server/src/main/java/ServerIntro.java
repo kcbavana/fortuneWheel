@@ -79,10 +79,28 @@ public class ServerIntro implements Initializable {
 		else if(data.charAt(0) == 'w') {
 			return "Word Size is: " + data.substring(1);
 		}
-		else if(Integer.valueOf(data) >= 0 && data.length() < 2) {
-			return "Guess is at " + data + " index";
+		else if (data.charAt(0) == 'e')
+		{
+			switch(data.substring(1))
+			{
+				case "win": return "Win";
+				case "loss": return "loss";
+				case "wingame": return "Win Game!";
+				case "losegame": return "Lose Game! Sorry";
+				default:	return "continue";
+						
+			}
 		}
-		else if(Integer.valueOf(data) >= 0 && data.length() >= 2) {
+		else if(data.equals("-0"))
+		{
+			return "continue";
+		}
+		else if(Integer.valueOf(data) >= 0) {
+			return "Client Guessed it right";
+		}
+		/*
+		else if(Integer.valueOf(data) >= 0 && data.length() >= 2 && data.charAt(0) != 'e') 
+		{
 			String retValue = "Guesses are at ";
 			for(int i = 0; i<data.length(); i++) {
 				retValue += data.charAt(i);
@@ -93,7 +111,7 @@ public class ServerIntro implements Initializable {
 			}
 			retValue += " indicies";
 			return retValue;
-		}
+		}*/
 		else if(Integer.valueOf(data) < 0) {
 			return "Sorry, its a wrong guess";
 		}

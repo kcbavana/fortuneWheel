@@ -97,7 +97,7 @@ public class ClientGameScene implements Initializable {
 			gameText.setText(spaceGuessArray());
 			});
 		pause2.play();
-		guessesText.setText("6");
+		guessesText.setText("Guesses Left: 6");
 		
 	}
 	
@@ -107,22 +107,22 @@ public class ClientGameScene implements Initializable {
 	}
 	
 	public void guessMethod() {
-		// Send guess
+		/*
+		 *  Send guess
+		 */
 		// TODO: error check
 		Client.currentGuess = sendCharBox.getText().charAt(0);
 		Client.send(sendCharBox.getText());
 		// Update Scene with updated Client info after pause
 		gameText.setText("Checking...");
+		/*
+		 * Check Results
+		 */
+		Client.send("Result");
 		pause1.setOnFinished(e->{
-			//gameText.setText(String.valueOf(Client.guessArray));
-			gameText.setText(spaceGuessArray());
+			updateScene();
 			});
 		pause1.play();
-		gameText.setText(String.valueOf(spaceGuessArray()));
-		guessesText.setText(String.valueOf(Client.guesses));
-		//initValue = String.valueOf(Client.guessArray);
-		//gameText.setText(initValue);
-		// TODO: checkForSceneChange()
 	}
 	
 	public void exitMethod(ActionEvent e) throws IOException {
@@ -160,4 +160,16 @@ public class ClientGameScene implements Initializable {
 		return String.valueOf(display);
 	}
 	
+	// Update Scene values to match game state
+	public void updateScene()
+	{
+
+		guessesText.setText("Guesses Left: " + Client.guesses);
+		Integer totalWins = Client.animalWins + Client.moviesWins + Client.placesWins;
+		currentCategory.setText("Current Category: " + Client.curCategory);
+		winsText.setText("Total Wins: " + totalWins);
+		Integer totalLosses = Client.animalLoses + Client.moviesLoses + Client.placesLoses;
+		losesText.setText("Total Loses: " + totalLosses);
+		gameText.setText(spaceGuessArray());
+	}
 }

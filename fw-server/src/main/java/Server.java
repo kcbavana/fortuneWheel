@@ -108,20 +108,9 @@ public class Server{
 				// Return misc. game state info
 				else 
 				{
-					switch(data)
-					{
-						case "winanimals":	return "todo";
-						case "winmovies":	return "todo";
-						case "winplaces":	return "todo";
-						case "lossanimals":	return "todo";
-						case "lossmovies":	return "todo";
-						case "lossplaces":	return "todo";
-						case "category":	return "todo";
-					}
-						
+					// should not reach here
+					return "end of parseMessage reached";
 				}
-				// should not reach here
-				return "fail";
 			}
 			
 			public void run(){

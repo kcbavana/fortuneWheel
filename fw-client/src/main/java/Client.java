@@ -92,6 +92,7 @@ public class Client extends Thread{
 			
 			System.out.println("Guess Aray: " + String.valueOf(guessArray));
 			guesses = 6;
+			return;
 		}
 		// Incorrect guess, received guesses remaining with "-" prepended
 		else if (data.startsWith("-"))
@@ -99,28 +100,50 @@ public class Client extends Thread{
 			String guessesLeftStr = data.substring(1);
 			Integer guessesLeft = Integer.valueOf(guessesLeftStr);
 			guesses = guessesLeft;
+			return;
 		}
 		/*
 		 * Process result of turn
 		 */
-		else if (data.equals("continue"))
+		else if (data.equals("econtinue"))
 		{
 			// wait for next guess
 			return;
 		}
-		else if (data.equals("win"))
+		else if (data.equals("ewin"))
+		{
+			switch(curCategory)
+			{
+				case "Animals":	animalWins = 1;
+								break;
+				case "Movies":	moviesWins = 1;
+								break;
+				case "Places":	placesWins = 1;
+								break;
+				default:		System.out.println("Invalid Category");
+								break;
+			}
+		}
+		else if (data.equals("eloss"))
+		{
+			System.out.println("loss acknowledged");
+			switch(curCategory)
+			{
+				case "Animals":	animalLoses += 1;
+								break;
+				case "Movies":	moviesLoses += 1;
+								break;
+				case "Places":	placesLoses += 1;
+								break;
+				default:		System.out.println("Invalid Category");
+								break;
+			}
+		}
+		else if (data.equals("ewingame"))
 		{
 			///TODO
 		}
-		else if (data.equals("lose"))
-		{
-			///TODO
-		}
-		else if (data.equals("wingame"))
-		{
-			///TODO
-		}
-		else if (data.equals("losegame"))
+		else if (data.equals("elosegame"))
 		{
 			///TODO
 		}
@@ -133,8 +156,34 @@ public class Client extends Thread{
 		}
 	}
 	
-	// get game state variables
-	// public static String/Integer getGameState(String something)
+	/*
+	 *  get game state variables
+	 */
+	public static Integer getWin(String category)
+	{
+		switch(category)
+		{
+			case "Animals":	return animalWins;
+			case "Movies":	return moviesWins;
+			case "Places":	return placesWins;
+			default:		System.out.println("Invalid Category");
+							break;			
+		}
+		return -1;
+	}
+	
+	public static Integer getLoss(String category)
+	{
+		switch(category)
+		{
+			case "Animals":	return animalLoses;
+			case "Movies":	return moviesLoses;
+			case "Places":	return placesLoses;
+			default:		System.out.println("Invalid Category");
+							break;			
+		}
+		return -1;
+	}
 	
 	// Set guessArray as array of underscores == currentWord.length()
 	public static void initGuessArray(int wordSize)

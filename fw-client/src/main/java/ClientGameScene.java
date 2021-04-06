@@ -93,10 +93,11 @@ public class ClientGameScene implements Initializable {
 		gameText.setText("Guess one letter");
 		pause.setOnFinished(e->{
 			System.out.println("This code runs");
-			gameText.setText(String.valueOf(Client.guessArray));
+			//gameText.setText(String.valueOf(Client.guessArray));
+			gameText.setText(spaceGuessArray());
 			});
 		pause.play();
-		// guessesText.setText(Client.guesses.toString());
+		guessesText.setText("6");
 		
 	}
 	
@@ -107,10 +108,12 @@ public class ClientGameScene implements Initializable {
 	
 	public void guessMethod() {
 		// Send guess
-		//Client.send(sendCharBox.getText());
+		// TODO: error check
+		Client.currentGuess = sendCharBox.getText().charAt(0);
+		Client.send(sendCharBox.getText());
 		// Update Scene with updated Client info
-		//gameText.setText(String.valueOf(Client.guessArray));
-		//guessesText.setText(Client.guesses.toString());
+		gameText.setText(String.valueOf(spaceGuessArray()));
+		guessesText.setText(String.valueOf(Client.guesses));
 		//initValue = String.valueOf(Client.guessArray);
 		//gameText.setText(initValue);
 		// TODO: checkForSceneChange()
@@ -135,6 +138,20 @@ public class ClientGameScene implements Initializable {
 		// Change current Scene on the Stage
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	// Add spaces between guessArray characters to display
+	public String spaceGuessArray()
+	{
+		// create array with 2x size
+		char[] display = new char[Client.guessArray.length *2];
+		// add guessArray chars to every other letter in display
+		for(int i = 0; i < Client.guessArray.length; i++)
+		{
+			display[i*2] = Client.guessArray[i];
+		}
+		
+		return String.valueOf(display);
 	}
 	
 }

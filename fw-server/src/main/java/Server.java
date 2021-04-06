@@ -135,7 +135,7 @@ public class Server{
 					System.out.println("Streams not open");
 				}
 				
-				updateClients("lnew client on server: client #"+count);
+				updateClients("new client on server: client #"+count);
 					
 				 while(true) {
 					    try {
@@ -150,8 +150,8 @@ public class Server{
 					    	
 					    	}
 					    catch(Exception e) {
-					    	callback.accept("lOOOOPPs...Something wrong with the socket from client: " + count + "....closing down!");
-					    	updateClients("lClient #"+count+" has left the server!");
+					    	callback.accept("OOOOPPs...Something wrong with the socket from client: " + count + "....closing down!");
+					    	updateClients("Client #"+count+" has left the server!");
 					    	clients.remove(this);
 					    	break;
 					    }

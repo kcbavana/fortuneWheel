@@ -68,6 +68,37 @@ public class ServerIntro implements Initializable {
 			return checkStr;
 		}
 	}
+	
+	public String updateServerLogIntro(String data) {
+		if(data.contains("client has connected to server:")) {
+			return data;
+		}
+		else if(data.contains("OOOP")) {
+			return data;
+		}
+		else if(data.charAt(0) == 'w') {
+			return "Word Size is: " + data.substring(1);
+		}
+		else if(Integer.valueOf(data) >= 0 && data.length() < 2) {
+			return "Guess is at " + data + " index";
+		}
+		else if(Integer.valueOf(data) >= 0 && data.length() >= 2) {
+			String retValue = "Guesses are at ";
+			for(int i = 0; i<data.length(); i++) {
+				retValue += data.charAt(i);
+				if(i == data.length()-1) {
+					break;
+				}
+				retValue += " and at ";
+			}
+			retValue += " indicies";
+			return retValue;
+		}
+		else if(Integer.valueOf(data) < 0) {
+			return "Sorry, its a wrong guess";
+		}
+		return data;
+	}
 
 	/*
 	 * Connect Button initializes a Server object listening on the 
@@ -91,7 +122,7 @@ public class ServerIntro implements Initializable {
 			Platform.runLater(() -> {
 				// replace this line with 'AddServerEvent to ServerScene Listview'
 				//System.out.println(data.toString());
-				controller.updateServerLogs(data.toString());
+				controller.updateServerLogs(updateServerLogIntro(data.toString()));
 			});
 		});
 		
@@ -109,7 +140,7 @@ public class ServerIntro implements Initializable {
 		Stage stage=(Stage) node.getScene().getWindow();
 		// Populate root of Scene Graph from .xml and init Scene
 		Parent root = FXMLLoader.load(getClass().getResource(fxml));
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(root, 500, 500);
 		// Apply CSS styling
 		scene.getStylesheets().add(css);
 		// Change current Scene on the Stage

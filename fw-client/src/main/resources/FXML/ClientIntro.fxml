@@ -15,8 +15,8 @@
 			<Text fx:id="title" text = "Fortune Wheel!"/>
 			<Text fx:id="subTitle" text="by Cody and Krish"/>
 			<VBox fx:id="portField" spacing = "5">
-				<TextField fx:id="portNumber" text = "Type portNumber and hit enter: "/>
-				<TextField fx:id="ipPort" text = "Type IP Address and hit enter: "/>
+				<TextField fx:id="portNumber" text = "Enter port (default: 5555)"/>
+				<TextField fx:id="ipPort" text = "Enter IP (default: 127.0.0.1)"/>
 			</VBox>
 		</VBox>
 		

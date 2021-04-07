@@ -1,34 +1,23 @@
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import java.util.ResourceBundle;
 import javafx.stage.Stage;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
+import javafx.application.Platform;
 import javafx.util.Duration;
-import javafx.scene.control.Label;
 
 public class ClientGameScene implements Initializable {
 	
@@ -102,8 +91,8 @@ public class ClientGameScene implements Initializable {
 	}
 	
 	public void newGameMethod(ActionEvent e) throws IOException {
-		// TODO: call game.newGame()
-		changeScene(e,"/FXML/ClientIntro.fxml","/styles/ClientIntro.css");
+		Client.newGame();
+		changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
 	}
 	
 	public void guessMethod(ActionEvent guessAction) throws IOException{
@@ -152,7 +141,8 @@ public class ClientGameScene implements Initializable {
 					else
 					{
 						try {
-							changeScene(guessAction,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
+							// Call controller to update CategoryScene
+							changeCategoryScene(guessAction,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
 						}
 						catch(IOException ei)  {
 							ei.printStackTrace();
@@ -162,13 +152,14 @@ public class ClientGameScene implements Initializable {
 				/*
 				 * Check lose
 				 */
-				if(Client.getLoss(Client.curCategory) == 1)
+				if(Client.checkLose == true)
 				{
+					Client.checkLose = false;
 					gameText.setText("Sorry, Try Again");
 					// Word guessed. Check for win match
-					if(Client.animalLoses == 1 &&
-							Client.placesLoses== 1 &&
-							Client.moviesLoses == 1)
+					if(Client.animalLoses == 3 ||
+							Client.placesLoses== 3 ||
+							Client.moviesLoses == 3)
 					{
 						try {
 							Client.newGame();
@@ -182,7 +173,7 @@ public class ClientGameScene implements Initializable {
 					else
 					{
 						try {
-							changeScene(guessAction,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
+							changeCategoryScene(guessAction,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
 						}
 						catch(IOException ei)  {
 							ei.printStackTrace();
@@ -191,32 +182,16 @@ public class ClientGameScene implements Initializable {
 				}
 			});
 			pause2.play();
-			
-			
-			
-			/*
-			
-			*/
 		}
 	}
-	
-	/* 
-	 * When we have three wins
-	public void winMethod(ActionEvent e) throws IOException {
-		changeScene(e,"/FXML/WinScene.fxml","/styles/WinScene.css");
-	}
-	
-	public void loseMethod(ActionEvent e) throws IOException {
-		changeScene(e,"/FXML/LoseScene.fxml","/styles/LoseScene.css");
-	}
-	*/
 	
 	public void exitMethod(ActionEvent e) throws IOException {
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
 		stage.close();
-		//TODO: close client connection
-	}
+		Platform.exit();
+        System.exit(0);	
+    }
 	
 	public void changeScene(ActionEvent e, String fxml, String css) throws IOException{
 		// Retrieve Stage from ActionEvent
@@ -232,6 +207,23 @@ public class ClientGameScene implements Initializable {
 		stage.show();
 	}
 	
+	// Call categoryScene controller and update buttons before changing scenes
+	public void changeCategoryScene(ActionEvent e, String fxml, String css) throws IOException
+	{
+		// Get info on current Scene/Window
+		Node node=(Node) e.getSource();
+		Stage stage=(Stage) node.getScene().getWindow();
+		//Scene scene = node.getScene();
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+		Scene scene = new Scene(loader.load());
+		scene.getStylesheets().add(css);
+		stage.setScene(scene);
+		CategoryScene controller = loader.getController();
+		controller.updateCategoryScene();
+		stage.show();
+	}
+	
 	// Add spaces between guessArray characters to display
 	public String spaceGuessArray()
 	{
@@ -242,14 +234,12 @@ public class ClientGameScene implements Initializable {
 		{
 			display[i*2] = Client.guessArray[i];
 		}
-		
 		return String.valueOf(display);
 	}
 	
 	// Update Scene values to match game state
 	public void updateScene()
 	{
-
 		guessesText.setText("Guesses Left: " + Client.guesses);
 		Integer totalWins = Client.animalWins + Client.moviesWins + Client.placesWins;
 		currentCategory.setText("Current Category: " + Client.curCategory);

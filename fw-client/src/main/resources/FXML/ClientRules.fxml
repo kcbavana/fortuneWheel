@@ -18,8 +18,9 @@
 			<Text fx:id="rulesText" text ="2. Choose a category in the category scene" />
 			<Text fx:id="rulesText" text ="3. Start the game by guessing the characters" />
 			<Text fx:id="rulesText" text ="4. Keep track of how many guesses left in bottom of the screen" />
-			<Text fx:id="rulesText" text ="5. If you guessed it right then you won the game/else you lost" />
-			<Text fx:id="rulesText" text ="6. Press Main to begin the game again" />
+			<Text fx:id="rulesText" text ="5. To Win, guess one word from each category" />
+			<Text fx:id="rulesText" text ="6. You lose the game if you fail to guess 3 words in one category" />
+			<Text fx:id="rulesText" text ="7. Press Main to begin the game again" />
 		</VBox>
 	</center>
 	<bottom>

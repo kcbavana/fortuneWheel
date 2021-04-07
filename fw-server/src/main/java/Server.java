@@ -5,8 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import javafx.application.Platform;
-import javafx.scene.control.ListView;
 
 // Server Class
 public class Server{
@@ -35,7 +33,7 @@ public class Server{
 		    while(true) {
 		
 				ClientThread c = new ClientThread(mysocket.accept(), count);
-				callback.accept("client has connected to server: " + "client #" + count);
+				callback.accept("lclient has connected to server: " + "client #" + count);
 				clients.add(c);
 				c.start();
 				
@@ -44,7 +42,7 @@ public class Server{
 			    }
 			}//end of try
 				catch(Exception e) {
-					callback.accept("Server socket did not launch");
+					callback.accept("lServer socket did not launch");
 				}
 			}//end of while
 		}
@@ -81,7 +79,7 @@ public class Server{
 			// parse String sent from client and respond accordingly
 			public String parseMessage(String data)
 			{
-				System.out.println("parseMessage: " + data);
+				//System.out.println("parseMessage: " + data);
 				
 				// Play word from new category
 				if(data.equals("Animals") || data.equals("Movies") || data.equals("Places"))
@@ -98,7 +96,7 @@ public class Server{
 				// Play next guess
 				else if (data.length() == 1)
 				{
-					return game.playNextGuess(data.charAt(0));
+					return game.playNextGuess(Character.toLowerCase(data.charAt(0)));
 				}
 				// Check win conditions
 				else if (data.equals("Result"))

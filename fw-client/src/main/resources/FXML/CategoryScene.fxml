@@ -11,7 +11,7 @@
 <BorderPane fx:controller="CategoryScene" xmlns:fx="http://javafx.com/fxml" id = "bPane">
 	<top>
 		<HBox fx:id="titleBox">
-			<Text fx:id="title" text = "Chose a category"/>
+			<Text fx:id="title" text = "Choose a Category"/>
 		</HBox>
 	</top>
 	<center>
@@ -38,7 +38,6 @@
 	</center>
 	<bottom>
 		<HBox fx:id="menuBox" spacing="70">
-			<Button fx:id="backButton" text="Back" onAction = "#backMethod"/>
 			<Button fx:id="exitButton" text="Exit" onAction = "#exitMethod"/>
 		</HBox>
 	

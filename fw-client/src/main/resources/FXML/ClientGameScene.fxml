@@ -24,7 +24,7 @@
 		<VBox fx:id="gameBox" spacing = "50">
 			<Text fx:id="gameText"/>
 			<HBox fx:id="sendBox" spacing = "5">
-				<TextField fx:id="sendCharBox" text = "Guess Character: "/>
+				<TextField fx:id="sendCharBox" text = "Case-insensitive"/>
 				<Button fx:id="sendButton" text = "Guess" onAction = "#guessMethod"/>
 			</HBox>
 			

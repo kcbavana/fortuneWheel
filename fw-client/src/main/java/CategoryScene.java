@@ -2,31 +2,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import java.util.ResourceBundle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 public class CategoryScene implements Initializable {
@@ -91,8 +79,8 @@ public class CategoryScene implements Initializable {
 	@FXML
 	private HBox menuBox;
 	
-	@FXML
-	private Button backButton;
+	//@FXML
+	//private Button backButton;
 	
 	@FXML
 	private Button exitButton;
@@ -105,10 +93,13 @@ public class CategoryScene implements Initializable {
 		moviesLoses.setText("Losses: " + Client.moviesLoses);
 		placesWin.setText("Wins: " + Client.placesWins);
 		placesLoses.setText("Losses: " + Client.placesLoses);
-        
 	}
 	
 	public void animalsMethod(ActionEvent e) throws IOException,InterruptedException {
+		if (Client.animalWins == 1)
+		{
+			return;
+		}
 		Client.curCategory = "Animals";
 		Client.send("Animals");
 		//Thread.sleep(3000);
@@ -117,6 +108,10 @@ public class CategoryScene implements Initializable {
 	}
 	
 	public void moviesMethod(ActionEvent e) throws IOException {
+		if (Client.moviesWins == 1)
+		{
+			return;
+		}
 		Client.curCategory = "Movies";
 		Client.send("Movies");
 		// Thread.sleep(3000);
@@ -124,20 +119,26 @@ public class CategoryScene implements Initializable {
 	}
 	
 	public void placesMethod(ActionEvent e) throws IOException {
+		if (Client.placesWins == 1)
+		{
+			return;
+		}
 		Client.curCategory = "Places";
 		Client.send("Places");
 		changeScene(e,"/FXML/ClientGameScene.fxml","/styles/ClientGameScene.css");
 	}
 	
+	/*
 	public void backMethod(ActionEvent e) throws IOException {
 		changeScene(e,"/FXML/ClientIntro.fxml","/styles/ClientIntro.css");
-	}
+	}*/
 	
 	public void exitMethod(ActionEvent e) throws IOException {
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
 		stage.close();
-		// TODO: exit platform and system
+		Platform.exit();
+        System.exit(0);
 	}
 	
 	public void changeScene(ActionEvent e, String fxml, String css) throws IOException{
@@ -152,6 +153,28 @@ public class CategoryScene implements Initializable {
 		// Change current Scene on the Stage
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	// Update CategoryScene after a win/loss
+	//Disable completed categories
+	public void updateCategoryScene()
+	{
+			if(Client.animalWins == 1)
+			{
+				animalsWin.setText("COMPLETED");
+				//animalsButton.setVisible(false);
+			}
+			if(Client.moviesWins == 1)
+			{
+				moviesWin.setText("COMPLETED");
+				//moviesButton.setVisible(false);
+			}
+			if(Client.placesWins == 1)
+			{
+				placesWin.setText("COMPLETED");
+				//placesButton.setVisible(false);
+			}
+
 	}
 	
 }

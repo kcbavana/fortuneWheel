@@ -5,26 +5,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import java.util.ResourceBundle;
 
 public class LoseScene implements Initializable {
 	
@@ -60,6 +50,8 @@ public class LoseScene implements Initializable {
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
 		stage.close();
+		Platform.exit();
+        System.exit(0);
 	}
 	
 	public void changeScene(ActionEvent e, String fxml, String css) throws IOException{

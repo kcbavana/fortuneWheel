@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -75,7 +74,7 @@ public class ClientIntro implements Initializable {
 		return tracker;
 	}
 	public String checkPort(String checkStr) {
-		if(checkStr.equals("Type portNumber and hit enter: ")) {
+		if(checkStr.equals("Enter port (default: 5555)")) {
 			return portNumb;
 		}
 		else if(checkStr.equals(" ")) {
@@ -87,7 +86,7 @@ public class ClientIntro implements Initializable {
 	}
 	
 	public String checkIP(String checkStr) {
-		if(checkStr.equals("Type IP Address and hit enter: ")) {
+		if(checkStr.equals("Enter IP (default: 127.0.0.1)")) {
 			return ipNumb;
 		}
 		else if(checkStr.equals(" ")) {
@@ -112,7 +111,6 @@ public class ClientIntro implements Initializable {
 		port = checkPort(port);
 		ip =  ipPort.getText();
 		ip = checkIP(ip);
-		System.out.println("IP test: " + ip);
 		client = new Client(data -> {
 			Platform.runLater(() -> {
 				Client.parseServerResponse(data.toString());
@@ -120,19 +118,7 @@ public class ClientIntro implements Initializable {
 		});
 		client.start();
 		
-		System.out.println("IP: " + ip);
-		System.out.println("PortNumber: " + port);
-		
-		//Change Scene
-		/*Node node=(Node) e.getSource();
-		Stage stage=(Stage) node.getScene().getWindow();
-		Parent root = FXMLLoader.load(getClass().getResource("/FXML/CategoryScene.fxml"));
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add("/styles/CategoryScene.css");
-		stage.setScene(scene);
-		stage.show();*/
-		changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
-		
+		changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");		
 	}
 	
 	public void rulesMethod(ActionEvent e) throws IOException {
@@ -143,7 +129,8 @@ public class ClientIntro implements Initializable {
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
 		stage.close();
-		//TODO exit platform and system
+		Platform.exit();
+        System.exit(0);
 	}
 	
 	/*

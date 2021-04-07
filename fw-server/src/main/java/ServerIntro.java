@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -58,7 +56,7 @@ public class ServerIntro implements Initializable {
 	}
 	
 	public String checkDefault(String checkStr) {
-		if(checkStr.equals("Enter the port number and press connect: ")) {
+		if(checkStr.equals("Enter port (default: 5555)")) {
 			return portNumb;
 		}
 		else if(checkStr.equals(" ")) {
@@ -86,10 +84,10 @@ public class ServerIntro implements Initializable {
 			String[] result = data.substring(1).split(":");
 			switch(result[0])
 			{
-				case "win": return "Correctly Guessed Word";
-				case "loss": return "Loss";
-				case "wingame": return "Win Game!";
-				case "losegame": return "Lose Game";
+				case "win": return "Correctly Guessed Word:" + result[1];
+				case "loss": return "Loss:" + result[1];
+				case "wingame": return "Win Game!:" + result[1];
+				case "losegame": return "Lose Game:" + result[1];
 				default:	return "continue";
 						
 			}
@@ -140,15 +138,11 @@ public class ServerIntro implements Initializable {
 		
 		server = new Server(data -> {
 			Platform.runLater(() -> {
-				// replace this line with 'AddServerEvent to ServerScene Listview'
-				//System.out.println(data.toString());
 				controller.updateServerLogs(updateServerLogIntro(data.toString()));
 			});
 		});
 		
-		stage.show();
-		
-		//changeScene(e, "/FXML/ServerScene.fxml","/styles/ServerScene.css");
+		stage.show();		
 	}
 	
 	/*
@@ -166,5 +160,13 @@ public class ServerIntro implements Initializable {
 		// Change current Scene on the Stage
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	public void exitMethod(ActionEvent e) throws IOException {
+		Node node=(Node) e.getSource();
+		Stage stage=(Stage) node.getScene().getWindow();
+		stage.close();
+		Platform.exit();
+        System.exit(0);
 	}
 }

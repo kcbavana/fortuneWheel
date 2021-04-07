@@ -1,4 +1,3 @@
-import java.util.regex.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -255,6 +254,7 @@ public class GameLogic {
 	// input char, output String of numbers corresponding to array indices == char
 	public String playNextGuess(char guess)
 	{
+		
 		String locations = new String("g");
 		// parse currentWord
 		for(int i = 0; i < currentWord.length(); i++)
@@ -283,12 +283,10 @@ public class GameLogic {
 	 */
 	private Boolean checkWin()
 	{
-		System.out.println("word: " + currentWord);
-		System.out.println("garr: " + String.valueOf(guessArray));
+		System.out.println("for easy grading: " + currentWord);
 		// game is won if currentWord == guessArray
 		if(currentWord.equals(String.valueOf(guessArray)))
 		{
-			System.out.println("win ack in gamelogic");
 			return true;
 		}
 		return false;
@@ -350,6 +348,7 @@ public class GameLogic {
 		if(checkWin())
 		{
 			setWin(currentCategory,true);
+			guesses = 6;
 			if (checkWinGame())
 			{
 				newGame();

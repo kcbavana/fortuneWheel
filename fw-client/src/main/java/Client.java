@@ -27,6 +27,7 @@ public class Client extends Thread{
 	public static Integer moviesLoses = 0;
 	public static Integer totalWins = 0;
 	public static Integer totalLoses = 0;
+	public static Boolean checkLose = false;
 	
 	public String ip = ClientIntro.ip;
 	public int portNumber = Integer.valueOf(ClientIntro.port);
@@ -73,7 +74,7 @@ public class Client extends Thread{
 	 */
 	public static void parseServerResponse(String data)
 	{
-		System.out.println("Server Response:" + data);
+		//System.out.println("Server Response:" + data);
 		// received server message, prepended with 'l'
 		if (data.startsWith("l"))
 		{
@@ -85,11 +86,8 @@ public class Client extends Thread{
 		{
 			String wordSizeStr = data.substring(1);
 			Integer wordSize = Integer.valueOf(wordSizeStr);
-			System.out.println("WordsizeStr: " + wordSizeStr);
-			System.out.println(wordSize);
 			initGuessArray(wordSize);
 			
-			System.out.println("Guess Aray: " + String.valueOf(guessArray));
 			guesses = 6;
 			return;
 		}
@@ -126,6 +124,7 @@ public class Client extends Thread{
 		}
 		else if (data.equals("ewin"))
 		{
+			guesses = 6;
 			switch(curCategory)
 			{
 				case "Animals":	animalWins = 1;
@@ -140,7 +139,7 @@ public class Client extends Thread{
 		}
 		else if (data.equals("eloss"))
 		{
-			System.out.println("loss acknowledged");
+			checkLose = true;
 			guesses = 6;
 			switch(curCategory)
 			{
@@ -162,6 +161,7 @@ public class Client extends Thread{
 		}
 		else if (data.equals("elosegame"))
 		{
+			checkLose = true;
 			animalLoses = 3;
 			moviesLoses = 3;
 			placesLoses = 3;
@@ -208,7 +208,6 @@ public class Client extends Thread{
 		{
 			guessArray[i] = '_';
 		}
-		System.out.println("Guess Array in init: " + String.valueOf(guessArray));
 	}
 		
 	public static void updateGuessArray(String locations, char guess)
@@ -224,10 +223,10 @@ public class Client extends Thread{
 	 */
 	public static void newGame()
 	{
-		guessArray = null;
+		guessArray = "Game Over".toCharArray();
 		guesses = 6;
 		currentGuess = '_';
-		curCategory = "newgame";
+		curCategory = "Play Again?";
 		animalWins = 0;
 		animalLoses = 0;
 		placesWins = 0;

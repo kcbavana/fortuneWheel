@@ -13,13 +13,13 @@
 		<VBox fx:id="centerBox" spacing = "30">
 			<Text fx:id="title" text = "Fortune Wheel!"/>
 			<Text fx:id="subTitle" text="by Cody and Krish"/>
-			<TextField fx:id="portField" text = "Enter the port number and press connect: "/>
+			<TextField fx:id="portField" text = "Enter port (default: 5555)"/>
 		</VBox>
 	</center>
 	<bottom>
 		<HBox fx:id="bottomBox" spacing = "50">
 			<Button fx:id="connectButton" text = "Connect" onAction = "#connectMethod"/>
-			<Button fx:id="exitButton" text="exit"/>
+			<Button fx:id="exitButton" text="exit" onAction = "#exitMethod"/>
 		</HBox>	
 	</bottom>
 </BorderPane>

@@ -28,7 +28,7 @@ public class JavaFXClient extends Application {
 		
 		primaryStage.setTitle("Fortune Wheel Client");
 		Parent root = FXMLLoader.load(getClass().getResource("/FXML/ClientIntro.fxml"));
-		Scene scene = new Scene(root, 500,500);
+		Scene scene = new Scene(root, 800,800);
 		scene.getStylesheets().add("/styles/ClientIntro.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();

@@ -21,6 +21,9 @@
 	-fx-alignment: center;
 }
 
+#titleBox {
+	-fx-alignment: center;
+}
 
 #moviesButton {
 	-fx-background-image: url('movies.jpg');

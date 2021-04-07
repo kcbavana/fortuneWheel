@@ -36,6 +36,9 @@ public class CategoryScene implements Initializable {
 	
 	@FXML
 	private Text title;
+	
+	@FXML
+	private HBox titleBox;
 
 	@FXML
 	private HBox categoryBox;
@@ -143,7 +146,7 @@ public class CategoryScene implements Initializable {
 		Stage stage=(Stage) node.getScene().getWindow();
 		// Populate root of Scene Graph from .xml and init Scene
 		Parent root = FXMLLoader.load(getClass().getResource(fxml));
-		Scene scene = new Scene(root, 500, 500);
+		Scene scene = new Scene(root, 800, 800);
 		// Apply CSS styling
 		scene.getStylesheets().add(css);
 		// Change current Scene on the Stage

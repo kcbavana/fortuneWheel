@@ -26,7 +26,7 @@ public class JavaFXServer extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Fortune Wheel Server");
 		Parent root = FXMLLoader.load(getClass().getResource("/FXML/ServerIntro.fxml"));
-		Scene scene = new Scene(root, 500,500);
+		Scene scene = new Scene(root, 800, 800);
 		scene.getStylesheets().add("/styles/ServerIntro.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();

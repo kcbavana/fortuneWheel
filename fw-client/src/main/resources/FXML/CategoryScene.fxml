@@ -10,7 +10,9 @@
 
 <BorderPane fx:controller="CategoryScene" xmlns:fx="http://javafx.com/fxml" id = "bPane">
 	<top>
-		<Text fx:id="title" text = "Chose a category"/>
+		<HBox fx:id="titleBox">
+			<Text fx:id="title" text = "Chose a category"/>
+		</HBox>
 	</top>
 	<center>
 		<HBox fx:id="categoryBox" spacing="50">

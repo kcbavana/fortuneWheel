@@ -106,7 +106,7 @@ public class ClientGameScene implements Initializable {
 		changeScene(e,"/FXML/ClientIntro.fxml","/styles/ClientIntro.css");
 	}
 	
-	public void guessMethod() {
+	public void guessMethod(ActionEvent guessAction) throws IOException{
 		// Send guess
 		Client.currentGuess = sendCharBox.getText().charAt(0);
 		String sender = sendCharBox.getText().toLowerCase(); // lowercase
@@ -128,10 +128,48 @@ public class ClientGameScene implements Initializable {
 			Client.send("Result");
 			pause1.setOnFinished(e->{
 				updateScene();
+				if(Client.animalLoses == 1 || Client.moviesLoses == 1 || Client.placesLoses == 1) {
+					gameText.setText("Nice Job, Time for next Category");
+					try {
+						changeScene(guessAction,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
+					}
+					catch(IOException ei)  {
+						ei.printStackTrace();
+					}
+				}
+				if(Client.animalLoses == 1 || Client.moviesLoses == 1 || Client.placesLoses == 1) {
+					gameText.setText("You Lost, Play Again");
+					pause1.setOnFinished(e->{
+						try {
+							changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
+							}
+							catch(IOException ei) {
+							  ei.printStackTrace();
+							}
+						});
+					pause1.play();
+				}
 				});
 			pause1.play();
+			
+			
+			
+			/*
+			
+			*/
 		}
 	}
+	
+	/* 
+	 * When we have three wins
+	public void winMethod(ActionEvent e) throws IOException {
+		changeScene(e,"/FXML/WinScene.fxml","/styles/WinScene.css");
+	}
+	
+	public void loseMethod(ActionEvent e) throws IOException {
+		changeScene(e,"/FXML/LoseScene.fxml","/styles/LoseScene.css");
+	}
+	*/
 	
 	public void exitMethod(ActionEvent e) throws IOException {
 		Node node=(Node) e.getSource();

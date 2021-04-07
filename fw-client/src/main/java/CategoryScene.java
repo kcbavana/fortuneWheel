@@ -50,13 +50,13 @@ public class CategoryScene implements Initializable {
 	private VBox moviesBox;
 	
 	@FXML
-	private Button animalsButton;
+	private static Button animalsButton;
 	
 	@FXML
-	private Button placesButton;
+	private static Button placesButton;
 	
 	@FXML
-	private Button moviesButton;
+	private static Button moviesButton;
 	
 	@FXML
 	private Text animalsText;

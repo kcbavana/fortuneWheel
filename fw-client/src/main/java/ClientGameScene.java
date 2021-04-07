@@ -83,7 +83,7 @@ public class ClientGameScene implements Initializable {
 	@FXML
 	private Text guessesText;
 	
-	String initValue;
+	//String initValue;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -134,6 +134,7 @@ public class ClientGameScene implements Initializable {
 				 */
 				if(Client.getWin(Client.curCategory) == 1)
 				{
+					gameText.setText("Nice Job!");
 					// Word guessed. Check for win match
 					if(Client.animalWins == 1 &&
 							Client.placesWins == 1 &&
@@ -163,6 +164,7 @@ public class ClientGameScene implements Initializable {
 				 */
 				if(Client.getLoss(Client.curCategory) == 1)
 				{
+					gameText.setText("Sorry, Try Again");
 					// Word guessed. Check for win match
 					if(Client.animalLoses == 1 &&
 							Client.placesLoses== 1 &&

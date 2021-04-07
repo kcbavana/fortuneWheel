@@ -227,7 +227,7 @@ public class Client extends Thread{
 		guessArray = null;
 		guesses = 6;
 		currentGuess = '_';
-		curCategory = null;
+		curCategory = "newgame";
 		animalWins = 0;
 		animalLoses = 0;
 		placesWins = 0;

@@ -126,31 +126,69 @@ public class ClientGameScene implements Initializable {
 			 * Check Results
 			 */
 			Client.send("Result");
-			pause1.setOnFinished(e->{
-				updateScene();
-				if(Client.animalLoses == 1 || Client.moviesLoses == 1 || Client.placesLoses == 1) {
-					gameText.setText("Nice Job, Time for next Category");
-					try {
-						changeScene(guessAction,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
-					}
-					catch(IOException ei)  {
-						ei.printStackTrace();
-					}
-				}
-				if(Client.animalLoses == 1 || Client.moviesLoses == 1 || Client.placesLoses == 1) {
-					gameText.setText("You Lost, Play Again");
-					pause1.setOnFinished(e->{
-						try {
-							changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
-							}
-							catch(IOException ei) {
-							  ei.printStackTrace();
-							}
-						});
-					pause1.play();
-				}
-				});
+			pause1.setOnFinished(e->{updateScene();});
 			pause1.play();
+			pause2.setOnFinished(e->{
+				/*
+				 * Check win
+				 */
+				if(Client.getWin(Client.curCategory) == 1)
+				{
+					// Word guessed. Check for win match
+					if(Client.animalWins == 1 &&
+							Client.placesWins == 1 &&
+							Client.moviesWins == 1)
+					{
+						try {
+							Client.newGame();
+							changeScene(guessAction,"/FXML/WinScene.fxml","/styles/WinScene.css");
+						}
+						catch(IOException ei) {
+							ei.printStackTrace();
+						}
+					}
+					// Match not over, proceed to next category
+					else
+					{
+						try {
+							changeScene(guessAction,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
+						}
+						catch(IOException ei)  {
+							ei.printStackTrace();
+						}
+					}
+				}
+				/*
+				 * Check lose
+				 */
+				if(Client.getLoss(Client.curCategory) == 1)
+				{
+					// Word guessed. Check for win match
+					if(Client.animalLoses == 1 &&
+							Client.placesLoses== 1 &&
+							Client.moviesLoses == 1)
+					{
+						try {
+							Client.newGame();
+							changeScene(guessAction,"/FXML/LoseScene.fxml","/styles/LoseScene.css");
+						}
+						catch(IOException ei) {
+							ei.printStackTrace();
+						}
+					}
+					// Match not over, proceed to next category
+					else
+					{
+						try {
+							changeScene(guessAction,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
+						}
+						catch(IOException ei)  {
+							ei.printStackTrace();
+						}
+					}
+				}
+			});
+			pause2.play();
 			
 			
 			

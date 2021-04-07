@@ -134,6 +134,7 @@ public class CategoryScene implements Initializable {
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
 		stage.close();
+		// TODO: exit platform and system
 	}
 	
 	public void changeScene(ActionEvent e, String fxml, String css) throws IOException{

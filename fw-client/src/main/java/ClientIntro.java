@@ -143,6 +143,7 @@ public class ClientIntro implements Initializable {
 		Node node=(Node) e.getSource();
 		Stage stage=(Stage) node.getScene().getWindow();
 		stage.close();
+		//TODO exit platform and system
 	}
 	
 	/*

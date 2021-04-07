@@ -350,25 +350,25 @@ public class GameLogic {
 		if(checkWin())
 		{
 			setWin(currentCategory,true);
+			if (checkWinGame())
+			{
+				newGame();
+				return "ewingame";
+			}
 			return "ewin";
 		}
 		// return "loss" if player is out of guesses
 		else if (checkLoss())
 		{
+			// Set loss and reset guesses
 			setLoss(currentCategory, (getLoss(currentCategory)+1));
+			guesses = 6;
+			if (checkLoseGame())
+			{
+				newGame();
+				return "elosegame";
+			}
 			return "eloss";
-		}
-		// return "wingame" if player has won the game
-		else if (checkWinGame())
-		{
-			newGame();
-			return "ewingame";
-		}
-		// return "losegame" if player has lost the game
-		else if (checkLoseGame())
-		{
-			newGame();
-			return "elosegame";
 		}
 		// return "continue" if game is unfinished
 		return "econtinue";

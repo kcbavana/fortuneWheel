@@ -49,7 +49,6 @@ public class Client extends Thread{
 		catch(Exception e) {}
 		
 		while(true) {
-			 
 			try {
 			String message = in.readObject().toString();
 			callback.accept(message);
@@ -142,6 +141,7 @@ public class Client extends Thread{
 		else if (data.equals("eloss"))
 		{
 			System.out.println("loss acknowledged");
+			guesses = 6;
 			switch(curCategory)
 			{
 				case "Animals":	animalLoses += 1;
@@ -156,11 +156,15 @@ public class Client extends Thread{
 		}
 		else if (data.equals("ewingame"))
 		{
-			///TODO
+			animalWins = 1;
+			moviesWins = 1;
+			placesWins = 1;
 		}
 		else if (data.equals("elosegame"))
 		{
-			///TODO
+			animalLoses = 3;
+			moviesLoses = 3;
+			placesLoses = 3;
 		}
 		
 	}
@@ -197,19 +201,13 @@ public class Client extends Thread{
 	// Set guessArray as array of underscores == currentWord.length()
 	public static void initGuessArray(int wordSize)
 	{
-		//System.out.println("Wordsize in init: " + wordSize);
 		int size = wordSize;
 		guessArray = new char[size];
-		//System.out.println("Wordsize in init: " + wordSize);
 		// set every value to _
 		for(int i = 0; i < wordSize; i++)
 		{
-			
 			guessArray[i] = '_';
-			//System.out.println("Guess Array in loop: " + guessArray[i]);
-			//System.out.println("Guess Array in loop: " + guessArray.toString());
 		}
-		//guessArray[wordSize] = '\0';
 		System.out.println("Guess Array in init: " + String.valueOf(guessArray));
 	}
 		
@@ -221,8 +219,24 @@ public class Client extends Thread{
 		}
 	}
 	
-	// Reset values for new game
-	
+	/*
+	 * Reset values for new game
+	 */
+	public static void newGame()
+	{
+		guessArray = null;
+		guesses = 6;
+		currentGuess = '_';
+		curCategory = null;
+		animalWins = 0;
+		animalLoses = 0;
+		placesWins = 0;
+		placesLoses = 0;
+		moviesWins = 0;
+		moviesLoses = 0;
+		totalWins = 0;
+		totalLoses = 0;
+	}
 	
 
 

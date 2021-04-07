@@ -52,7 +52,7 @@ public class WinScene implements Initializable {
 	
 	
 	public void mainMenuMethod(ActionEvent e) throws IOException {
-		changeScene(e,"/FXML/ClientIntro.fxml","/styles/ClientIntro.css");
+		changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
 	}
 	
 	public void exitMethod(ActionEvent e) throws IOException {

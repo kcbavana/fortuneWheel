@@ -5,38 +5,35 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import javafx.application.Platform;
-import javafx.scene.control.ListView;
 
 // Server Class
 public class Server{
 
 	int count = 1;	
 	ArrayList<ClientThread> clients = new ArrayList<ClientThread>();
-	TheServer server;
+	ServerThread server;
 	private Consumer<Serializable> callback;
-	
-	
+	GameLogic logic = new GameLogic();
+
+	int portNumber = Integer.parseInt(ServerIntro.portNumber);
 	Server(Consumer<Serializable> call){
 	
 		callback = call;
-		server = new TheServer();
+		server = new ServerThread();
 		server.start();
 	}
 	
 	// Server Thread inner class
-	public class TheServer extends Thread{
+	public class ServerThread extends Thread{
 		
 		public void run() {
-		
-			try(ServerSocket mysocket = new ServerSocket(5555);){
+			try(ServerSocket mysocket = new ServerSocket(portNumber)){
 		    System.out.println("Server is waiting for a client!");
 		  
-			
 		    while(true) {
 		
 				ClientThread c = new ClientThread(mysocket.accept(), count);
-				callback.accept("client has connected to server: " + "client #" + count);
+				callback.accept("lclient has connected to server: " + "client #" + count);
 				clients.add(c);
 				c.start();
 				
@@ -45,7 +42,7 @@ public class Server{
 			    }
 			}//end of try
 				catch(Exception e) {
-					callback.accept("Server socket did not launch");
+					callback.accept("lServer socket did not launch");
 				}
 			}//end of while
 		}
@@ -54,14 +51,19 @@ public class Server{
 		// Each client thread will run a GameLogic object
 		class ClientThread extends Thread{
 			
-			Socket connection;
 			int count;
+			Socket connection;
 			ObjectInputStream in;
 			ObjectOutputStream out;
+			GameLogic game;
 			
+			/*
+			 * Constructor, inits GameLogic object
+			 */
 			ClientThread(Socket s, int count){
 				this.connection = s;
-				this.count = count;	
+				this.count = count;
+				game = new GameLogic();
 			}
 			
 			public void updateClients(String message) {
@@ -71,6 +73,41 @@ public class Server{
 					 t.out.writeObject(message);
 					}
 					catch(Exception e) {}
+				}
+			}
+			
+			// parse String sent from client and respond accordingly
+			public String parseMessage(String data)
+			{
+				//System.out.println("parseMessage: " + data);
+				
+				// Play word from new category
+				if(data.equals("Animals") || data.equals("Movies") || data.equals("Places"))
+				{
+					game.setCategory(data);
+					game.playNextWord();
+					int wordSize = game.getCurrentWord().length();
+					/*
+					 *  Message denoting wordsize is prepended with 'w' to 
+					 *  differentiate it from locations of correct guesses
+					 */
+					return "w" + String.valueOf(wordSize);
+				}
+				// Play next guess
+				else if (data.length() == 1)
+				{
+					return game.playNextGuess(Character.toLowerCase(data.charAt(0)));
+				}
+				// Check win conditions
+				else if (data.equals("Result"))
+				{
+					return game.playResult();
+				}
+				// Return misc. game state info
+				else 
+				{
+					// should not reach here
+					return "end of parseMessage reached";
 				}
 			}
 			
@@ -85,18 +122,25 @@ public class Server{
 					System.out.println("Streams not open");
 				}
 				
-				updateClients("new client on server: client #"+count);
+				updateClients("lnew client on server: client #"+count);
 					
 				 while(true) {
 					    try {
 					    	String data = in.readObject().toString();
-					    	callback.accept("client: " + count + " sent: " + data);
-					    	updateClients("client #"+count+" said: "+data);
+					    	
+					    	// parse message from client
+					    	String response = parseMessage(data);
+					    	out.writeObject(response);
+					    	
+					    	callback.accept(response + ": Client " + count);
+					    	//callback.accept("client: " + count + " sent: " + data);
+					    	//updateClients("client #"+count+" said: "+data);
 					    	
 					    	}
 					    catch(Exception e) {
-					    	callback.accept("OOOOPPs...Something wrong with the socket from client: " + count + "....closing down!");
-					    	updateClients("Client #"+count+" has left the server!");
+					    	//System.out.println("exception: " + e);
+					    	callback.accept("lOOOOPPs...Something wrong with the socket from client: " + count + "....closing down!");
+					    	updateClients("lClient #"+count+" has left the server!");
 					    	clients.remove(this);
 					    	break;
 					    }

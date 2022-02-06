@@ -1,0 +1,251 @@
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
+
+public class ClientGameScene implements Initializable {
+	
+	PauseTransition pause1 = new PauseTransition(Duration.seconds(1));
+	PauseTransition pause2 = new PauseTransition(Duration.seconds(2));
+
+	@FXML
+	private BorderPane bPane;
+	
+	@FXML
+	private VBox titleVBox;
+	
+	@FXML
+	private HBox titleBox;
+	
+	@FXML
+	private Text title;
+	
+	@FXML
+	private Text winsText;
+	
+	@FXML
+	private Text currentCategory;
+	
+	@FXML
+	private Text losesText;
+	
+	@FXML
+	private VBox gameBox;
+	
+	@FXML
+	private Text gameText;
+	
+	@FXML
+	private HBox sendBox;
+	
+	@FXML
+	private TextField sendCharBox;
+	
+	@FXML
+	private Button sendButton;
+	
+	@FXML
+	private HBox menuBox;
+	
+	@FXML
+	private Button newGameButton;
+	
+	@FXML
+	private Button exitButton;
+	
+	@FXML
+	private Text guessesText;
+	
+	//String initValue;
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		currentCategory.setText("Current Category: " + Client.curCategory);
+		winsText.setText("Total Wins: " + Client.totalWins);
+		losesText.setText("Total Loses: " + Client.totalLoses);
+		//initValue = String.valueOf(Client.guessArray);
+		gameText.setText("Guess one letter");
+		pause2.setOnFinished(e->{
+			//gameText.setText(String.valueOf(Client.guessArray));
+			gameText.setText(spaceGuessArray());
+			});
+		pause2.play();
+		guessesText.setText("Guesses Left: 6");
+		
+	}
+	
+	public void newGameMethod(ActionEvent e) throws IOException {
+		Client.newGame();
+		changeScene(e,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
+	}
+	
+	public void guessMethod(ActionEvent guessAction) throws IOException{
+		// Send guess
+		Client.currentGuess = sendCharBox.getText().charAt(0);
+		String sender = sendCharBox.getText().toLowerCase(); // lowercase
+		if(sender.length() > 1) {
+			gameText.setText("One Letter Only");
+			pause1.setOnFinished(e->{
+				gameText.setText(spaceGuessArray());
+				});
+			pause1.play();
+		}
+		else {
+			// Update Scene with updated Client info after pause
+			Client.send(sender);
+			// Update Scene with updated Client info after pause
+			gameText.setText("Checking...");
+			/*
+			 * Check Results
+			 */
+			Client.send("Result");
+			pause1.setOnFinished(e->{updateScene();});
+			pause1.play();
+			pause2.setOnFinished(e->{
+				/*
+				 * Check win
+				 */
+				if(Client.getWin(Client.curCategory) == 1)
+				{
+					gameText.setText("Nice Job!");
+					// Word guessed. Check for win match
+					if(Client.animalWins == 1 &&
+							Client.placesWins == 1 &&
+							Client.moviesWins == 1)
+					{
+						try {
+							Client.newGame();
+							changeScene(guessAction,"/FXML/WinScene.fxml","/styles/WinScene.css");
+						}
+						catch(IOException ei) {
+							ei.printStackTrace();
+						}
+					}
+					// Match not over, proceed to next category
+					else
+					{
+						try {
+							// Call controller to update CategoryScene
+							changeCategoryScene(guessAction,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
+						}
+						catch(IOException ei)  {
+							ei.printStackTrace();
+						}
+					}
+				}
+				/*
+				 * Check lose
+				 */
+				if(Client.checkLose == true)
+				{
+					Client.checkLose = false;
+					gameText.setText("Sorry, Try Again");
+					// Word guessed. Check for win match
+					if(Client.animalLoses == 3 ||
+							Client.placesLoses== 3 ||
+							Client.moviesLoses == 3)
+					{
+						try {
+							Client.newGame();
+							changeScene(guessAction,"/FXML/LoseScene.fxml","/styles/LoseScene.css");
+						}
+						catch(IOException ei) {
+							ei.printStackTrace();
+						}
+					}
+					// Match not over, proceed to next category
+					else
+					{
+						try {
+							changeCategoryScene(guessAction,"/FXML/CategoryScene.fxml","/styles/CategoryScene.css");
+						}
+						catch(IOException ei)  {
+							ei.printStackTrace();
+						}
+					}
+				}
+			});
+			pause2.play();
+		}
+	}
+	
+	public void exitMethod(ActionEvent e) throws IOException {
+		Node node=(Node) e.getSource();
+		Stage stage=(Stage) node.getScene().getWindow();
+		stage.close();
+		Platform.exit();
+        System.exit(0);	
+    }
+	
+	public void changeScene(ActionEvent e, String fxml, String css) throws IOException{
+		// Retrieve Stage from ActionEvent
+		Node node=(Node) e.getSource();
+		Stage stage=(Stage) node.getScene().getWindow();
+		// Populate root of Scene Graph from .xml and init Scene
+		Parent root = FXMLLoader.load(getClass().getResource(fxml));
+		Scene scene = new Scene(root, 800, 800);
+		// Apply CSS styling
+		scene.getStylesheets().add(css);
+		// Change current Scene on the Stage
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	// Call categoryScene controller and update buttons before changing scenes
+	public void changeCategoryScene(ActionEvent e, String fxml, String css) throws IOException
+	{
+		// Get info on current Scene/Window
+		Node node=(Node) e.getSource();
+		Stage stage=(Stage) node.getScene().getWindow();
+		//Scene scene = node.getScene();
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+		Scene scene = new Scene(loader.load());
+		scene.getStylesheets().add(css);
+		stage.setScene(scene);
+		CategoryScene controller = loader.getController();
+		controller.updateCategoryScene();
+		stage.show();
+	}
+	
+	// Add spaces between guessArray characters to display
+	public String spaceGuessArray()
+	{
+		// create array with 2x size
+		char[] display = new char[Client.guessArray.length *2];
+		// add guessArray chars to every other letter in display
+		for(int i = 0; i < Client.guessArray.length; i++)
+		{
+			display[i*2] = Client.guessArray[i];
+		}
+		return String.valueOf(display);
+	}
+	
+	// Update Scene values to match game state
+	public void updateScene()
+	{
+		guessesText.setText("Guesses Left: " + Client.guesses);
+		Integer totalWins = Client.animalWins + Client.moviesWins + Client.placesWins;
+		currentCategory.setText("Current Category: " + Client.curCategory);
+		winsText.setText("Total Wins: " + totalWins);
+		Integer totalLosses = Client.animalLoses + Client.moviesLoses + Client.placesLoses;
+		losesText.setText("Total Loses: " + totalLosses);
+		gameText.setText(spaceGuessArray());
+	}
+}

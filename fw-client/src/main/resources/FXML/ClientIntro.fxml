@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+<?import java.lang.*?>
+
+<BorderPane fx:controller="ClientIntro" xmlns:fx="http://javafx.com/fxml" id = "bPane">
+
+	<center>
+		<VBox fx:id="centerBox" spacing = "30">
+			<Text fx:id="title" text = "Fortune Wheel!"/>
+			<Text fx:id="subTitle" text="by Cody and Krish"/>
+			<VBox fx:id="portField" spacing = "5">
+				<TextField fx:id="portNumber" text = "Enter port (default: 5555)"/>
+				<TextField fx:id="ipPort" text = "Enter IP (default: 127.0.0.1)"/>
+			</VBox>
+		</VBox>
+		
+	</center>
+	<bottom>
+		<HBox fx:id="bottomBox" spacing = "50">
+			<Button fx:id="connectButton" text = "Connect" onAction = "#connectMethod"/>
+			<Button fx:id="rulesButton" text="Rules" onAction = "#rulesMethod" />
+			<Button fx:id="exitButton" text="exit" onAction = "#exitMethod" />
+		</HBox>	
+	</bottom>
+	
+</BorderPane>

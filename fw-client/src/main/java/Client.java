@@ -12,8 +12,25 @@ public class Client extends Thread{
 	
 	Socket socketClient;
 	
-	ObjectOutputStream out;
-	ObjectInputStream in;
+	static ObjectOutputStream out;
+	static ObjectInputStream in;
+	
+	public static char[] guessArray;
+	public static Integer guesses;
+	public static char currentGuess;
+	public static String curCategory;
+	public static Integer animalWins = 0;
+	public static Integer animalLoses = 0;
+	public static Integer placesWins = 0;
+	public static Integer placesLoses = 0;
+	public static Integer moviesWins = 0;
+	public static Integer moviesLoses = 0;
+	public static Integer totalWins = 0;
+	public static Integer totalLoses = 0;
+	public static Boolean checkLose = false;
+	
+	public String ip = ClientIntro.ip;
+	public int portNumber = Integer.valueOf(ClientIntro.port);
 	
 	private Consumer<Serializable> callback;
 	
@@ -25,15 +42,14 @@ public class Client extends Thread{
 	public void run() {
 		
 		try {
-		socketClient= new Socket("127.0.0.1",5555);
-	    out = new ObjectOutputStream(socketClient.getOutputStream());
-	    in = new ObjectInputStream(socketClient.getInputStream());
-	    socketClient.setTcpNoDelay(true);
+			socketClient= new Socket(ip, portNumber);
+		    out = new ObjectOutputStream(socketClient.getOutputStream());
+		    in = new ObjectInputStream(socketClient.getInputStream());
+		    socketClient.setTcpNoDelay(true);
 		}
 		catch(Exception e) {}
 		
 		while(true) {
-			 
 			try {
 			String message = in.readObject().toString();
 			callback.accept(message);
@@ -43,7 +59,7 @@ public class Client extends Thread{
 	
     }
 	
-	public void send(String data) {
+	public static void send(String data) {
 		
 		try {
 			out.writeObject(data);
@@ -52,6 +68,175 @@ public class Client extends Thread{
 			e.printStackTrace();
 		}
 	}
+	
+	/*
+	 * Parse server response into static variables to manage game state
+	 */
+	public static void parseServerResponse(String data)
+	{
+		//System.out.println("Server Response:" + data);
+		// received server message, prepended with 'l'
+		if (data.startsWith("l"))
+		{
+			// do nothing
+			return;
+		}
+		// received size of next word to guess with "w" prepended
+		else if (data.startsWith("w"))
+		{
+			String wordSizeStr = data.substring(1);
+			Integer wordSize = Integer.valueOf(wordSizeStr);
+			initGuessArray(wordSize);
+			
+			guesses = 6;
+			return;
+		}
+		/*
+		 * Process guess
+		 */
+		else if (data.startsWith("g"))
+		{
+			// strip e
+			String guess = data.substring(1);
+			// Incorrect guess, received guesses remaining with "-" prepended
+			if (guess.startsWith("-"))
+			{
+				String guessesLeftStr = guess.substring(1);
+				Integer guessesLeft = Integer.valueOf(guessesLeftStr);
+				guesses = guessesLeft;
+				return;
+			}
+			// Received locations of correctly guessed letters
+			else
+			{
+				//System.out.println("processed guess");
+				updateGuessArray(guess,currentGuess);
+				return;
+			}
+		}
+		/*
+		 * Process result of turn
+		 */
+		else if (data.equals("econtinue"))
+		{
+			// wait for next guess
+			return;
+		}
+		else if (data.equals("ewin"))
+		{
+			guesses = 6;
+			switch(curCategory)
+			{
+				case "Animals":	animalWins = 1;
+								break;
+				case "Movies":	moviesWins = 1;
+								break;
+				case "Places":	placesWins = 1;
+								break;
+				default:		System.out.println("Invalid Category");
+								break;
+			}
+		}
+		else if (data.equals("eloss"))
+		{
+			checkLose = true;
+			guesses = 6;
+			switch(curCategory)
+			{
+				case "Animals":	animalLoses += 1;
+								break;
+				case "Movies":	moviesLoses += 1;
+								break;
+				case "Places":	placesLoses += 1;
+								break;
+				default:		System.out.println("Invalid Category");
+								break;
+			}
+		}
+		else if (data.equals("ewingame"))
+		{
+			animalWins = 1;
+			moviesWins = 1;
+			placesWins = 1;
+		}
+		else if (data.equals("elosegame"))
+		{
+			checkLose = true;
+			animalLoses = 3;
+			moviesLoses = 3;
+			placesLoses = 3;
+		}
+		
+	}
+	
+	/*
+	 *  get game state variables
+	 */
+	public static Integer getWin(String category)
+	{
+		switch(category)
+		{
+			case "Animals":	return animalWins;
+			case "Movies":	return moviesWins;
+			case "Places":	return placesWins;
+			default:		System.out.println("Invalid Category");
+							break;			
+		}
+		return -1;
+	}
+	
+	public static Integer getLoss(String category)
+	{
+		switch(category)
+		{
+			case "Animals":	return animalLoses;
+			case "Movies":	return moviesLoses;
+			case "Places":	return placesLoses;
+			default:		System.out.println("Invalid Category");
+							break;			
+		}
+		return -1;
+	}
+	
+	// Set guessArray as array of underscores == currentWord.length()
+	public static void initGuessArray(int wordSize)
+	{
+		int size = wordSize;
+		guessArray = new char[size];
+		// set every value to _
+		for(int i = 0; i < wordSize; i++)
+		{
+			guessArray[i] = '_';
+		}
+	}
+		
+	public static void updateGuessArray(String locations, char guess)
+	{
+		for(char c: locations.toCharArray())
+		{
+			guessArray[Character.getNumericValue(c)] = guess;
+		}
+	}
+	
+	/*
+	 * Reset values for new game
+	 */
+	public static void newGame()
+	{
+		guessArray = "Game Over".toCharArray();
+		guesses = 6;
+		currentGuess = '_';
+		curCategory = "Play Again?";
+		animalWins = 0;
+		animalLoses = 0;
+		placesWins = 0;
+		placesLoses = 0;
+		moviesWins = 0;
+		moviesLoses = 0;
+		totalWins = 0;
+		totalLoses = 0;
+	}
+	
 
 
 }

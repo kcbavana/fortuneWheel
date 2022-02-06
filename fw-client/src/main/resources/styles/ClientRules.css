@@ -1,0 +1,15 @@
+#bPane {
+	-fx-background-color: #b1dae7;
+}
+
+#title {
+	-fx-font: 90px Tahoma;
+}
+
+#rulesBox {
+	-fx-background-color: white;
+}
+
+#rulesText {
+	-fx-font: 10px Tahoma;
+}

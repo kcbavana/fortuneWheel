@@ -1,0 +1,11 @@
+#bPane {
+	-fx-background-color: #b1dae7;
+}
+
+#title {
+	-fx-font: 100px Tahoma;
+}
+
+#menuBox {
+	-fx-alignment: center;
+}
